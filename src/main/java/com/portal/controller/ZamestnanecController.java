@@ -32,6 +32,7 @@ public class ZamestnanecController {
         return zamestnanecService.findAll();
     }//@RequestBody FindAllZamestnanecRequest request
 
+
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public UUID createZamestnanec(@RequestBody CreateZamestnanecRequest request) {

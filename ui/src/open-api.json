@@ -1,0 +1,839 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/zamestnanec/{id}": {
+      "get": {
+        "tags": [
+          "zamestnanec-controller"
+        ],
+        "operationId": "getZamestnanec",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetZamestnanecResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "zamestnanec-controller"
+        ],
+        "operationId": "upravZamestnanca",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpravZamestnancaRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "zamestnanec-controller"
+        ],
+        "operationId": "deleteZamestnanec",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/uloha/{ulohaId}/prirad-zamestnanca/{zamestnanecId}": {
+      "put": {
+        "tags": [
+          "uloha-controller"
+        ],
+        "operationId": "priradZamestnancaNaProjekt",
+        "parameters": [
+          {
+            "name": "ulohaId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "zamestnanecId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/uloha/{ulohaId}/odstran-zamestnanca": {
+      "put": {
+        "tags": [
+          "uloha-controller"
+        ],
+        "operationId": "odstranZamestnancaZProjektu",
+        "parameters": [
+          {
+            "name": "ulohaId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/uloha/{id}": {
+      "get": {
+        "tags": [
+          "uloha-controller"
+        ],
+        "operationId": "getZamestnanec_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUlohaResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "uloha-controller"
+        ],
+        "operationId": "upravZamestnanca_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpravUlohuRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "uloha-controller"
+        ],
+        "operationId": "deleteZamestnanec_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/zamestnanec/save": {
+      "post": {
+        "tags": [
+          "zamestnanec-controller"
+        ],
+        "operationId": "createZamestnanec",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateZamestnanecRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/zamestnanec/find-all": {
+      "post": {
+        "tags": [
+          "zamestnanec-controller"
+        ],
+        "operationId": "findAll",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindAllZamestnanecRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zamestnanec"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/zamestnanec/find-all-filter/{id}/{meno}": {
+      "post": {
+        "tags": [
+          "zamestnanec-controller"
+        ],
+        "operationId": "findAllFilter",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "meno",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Zamestnanec"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/uloha/save": {
+      "post": {
+        "tags": [
+          "uloha-controller"
+        ],
+        "operationId": "createZamestnanec_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUlohaRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/uloha/find-all": {
+      "post": {
+        "tags": [
+          "uloha-controller"
+        ],
+        "operationId": "findAll_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Uloha"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sms/send-email": {
+      "post": {
+        "tags": [
+          "sms-controller"
+        ],
+        "operationId": "sendEmail",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimpleEmailRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/sms/recieve": {
+      "post": {
+        "tags": [
+          "sms-controller"
+        ],
+        "operationId": "recieveSMS",
+        "parameters": [
+          {
+            "name": "request",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SMSRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/zamestnanec/getId": {
+      "get": {
+        "tags": [
+          "zamestnanec-controller"
+        ],
+        "operationId": "randomId",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UpravZamestnancaRequest": {
+        "type": "object",
+        "properties": {
+          "meno": {
+            "type": "string"
+          },
+          "priezvisko": {
+            "type": "string"
+          },
+          "vek": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kontraktDo": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "typZamestnanca": {
+            "type": "string",
+            "enum": [
+              "TPP",
+              "DOHODAR"
+            ]
+          },
+          "pozicia": {
+            "type": "string",
+            "enum": [
+              "PROGRAMATOR",
+              "UCTOVNIK",
+              "SEF_PROGRAMATOROV",
+              "CEO",
+              "UPRATOVAC"
+            ]
+          }
+        }
+      },
+      "UpravUlohuRequest": {
+        "type": "object",
+        "properties": {
+          "nazov": {
+            "type": "string"
+          },
+          "popis": {
+            "type": "string"
+          },
+          "nazovZakaznika": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "priradenyZamestnanec": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sefProjektu": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "CreateZamestnanecRequest": {
+        "type": "object",
+        "properties": {
+          "meno": {
+            "type": "string"
+          },
+          "priezvisko": {
+            "type": "string"
+          },
+          "vek": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kontraktDo": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "typZamestnanca": {
+            "type": "string",
+            "enum": [
+              "TPP",
+              "DOHODAR"
+            ]
+          },
+          "pozicia": {
+            "type": "string",
+            "enum": [
+              "PROGRAMATOR",
+              "UCTOVNIK",
+              "SEF_PROGRAMATOROV",
+              "CEO",
+              "UPRATOVAC"
+            ]
+          }
+        }
+      },
+      "FindAllZamestnanecRequest": {
+        "type": "object"
+      },
+      "Uloha": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nazov": {
+            "type": "string"
+          },
+          "datumVytvorenia": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "popis": {
+            "type": "string"
+          },
+          "priradenyZamestnanec": {
+            "$ref": "#/components/schemas/Zamestnanec"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vrstva": {
+            "type": "string",
+            "enum": [
+              "BE",
+              "FE"
+            ]
+          },
+          "fixVersion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sefProjektu": {
+            "$ref": "#/components/schemas/Zamestnanec"
+          }
+        }
+      },
+      "Zamestnanec": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "meno": {
+            "type": "string"
+          },
+          "priezvisko": {
+            "type": "string"
+          },
+          "vek": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "zamestnanyOd": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "kontraktDo": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "typZamestnanca": {
+            "type": "string",
+            "enum": [
+              "TPP",
+              "DOHODAR"
+            ]
+          },
+          "pozicia": {
+            "type": "string",
+            "enum": [
+              "PROGRAMATOR",
+              "UCTOVNIK",
+              "SEF_PROGRAMATOROV",
+              "CEO",
+              "UPRATOVAC"
+            ]
+          },
+          "uloha": {
+            "$ref": "#/components/schemas/Uloha"
+          },
+          "prideleneUlohy": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Uloha"
+            }
+          }
+        }
+      },
+      "CreateUlohaRequest": {
+        "type": "object",
+        "properties": {
+          "nazov": {
+            "type": "string"
+          },
+          "popis": {
+            "type": "string"
+          },
+          "priradenyZamestnanec": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sefProjektu": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "vrstva": {
+            "type": "string",
+            "enum": [
+              "BE",
+              "FE"
+            ]
+          },
+          "fixVersion": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "SimpleEmailRequest": {
+        "type": "object",
+        "properties": {
+          "prijmatel": {
+            "type": "string"
+          },
+          "predmet": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "SMSRequest": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "time": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sim": {
+            "type": "string"
+          },
+          "extra1": {
+            "type": "string"
+          },
+          "extra2": {
+            "type": "string"
+          }
+        }
+      },
+      "GetZamestnanecResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "meno": {
+            "type": "string"
+          },
+          "priezvisko": {
+            "type": "string"
+          },
+          "vek": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "zamestnanyOd": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "kontraktDo": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "typZamestnanca": {
+            "type": "string",
+            "enum": [
+              "TPP",
+              "DOHODAR"
+            ]
+          },
+          "pozicia": {
+            "type": "string",
+            "enum": [
+              "PROGRAMATOR",
+              "UCTOVNIK",
+              "SEF_PROGRAMATOROV",
+              "CEO",
+              "UPRATOVAC"
+            ]
+          },
+          "uloha": {
+            "$ref": "#/components/schemas/Uloha"
+          }
+        }
+      },
+      "GetUlohaResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nazov": {
+            "type": "string"
+          },
+          "datumVytvorenia": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "popis": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fixVersion": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vrstva": {
+            "type": "string",
+            "enum": [
+              "BE",
+              "FE"
+            ]
+          },
+          "sefProjektu": {
+            "$ref": "#/components/schemas/Zamestnanec"
+          },
+          "priradenyZamestnanec": {
+            "$ref": "#/components/schemas/Zamestnanec"
+          }
+        }
+      }
+    }
+  }
+}

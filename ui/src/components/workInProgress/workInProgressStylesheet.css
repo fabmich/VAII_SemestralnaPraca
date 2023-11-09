@@ -1,0 +1,13 @@
+.content {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+p {
+    font-size: 18px;
+    margin-top: 20px;
+}

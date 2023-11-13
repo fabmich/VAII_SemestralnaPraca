@@ -30,5 +30,31 @@ class ZamestnanecServices {
                 // Handle the error here
             });
     }
+
+
+    findAllZamestnanci() {
+        return axios.post(BASE_ZAMESTNANEC_URL + '/find-all')
+            .then(response => {
+                console.log('Response:', response.data);
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                throw error;
+            });
+    }
+
+    getZamestnanec(id) {
+        return axios.get(BASE_ZAMESTNANEC_URL + '/' + id)
+            .then(response => {
+                console.log('Response:', response.data);
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                throw error;
+            });
+    }
 }
+
 export default ZamestnanecServices;

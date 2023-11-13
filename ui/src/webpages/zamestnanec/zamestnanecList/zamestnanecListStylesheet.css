@@ -1,0 +1,42 @@
+
+.add-button-container {
+    text-align: right;
+    margin-top: 60px;
+    margin-right: 30px
+}
+
+.add-button {
+    background-color: green;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.employee-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 60px;
+}
+
+.employee-item {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+/* (ID, Meno, Priezvisko, Vek) */
+.employee-item .row {
+    overflow: hidden;
+}
+
+.employee-item .employee-info {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+/* (Zamestnany od, Kontrakt do, Typ zamestnanca, Pozicia) */
+.employee-item .row:last-child {
+    display: block;
+}

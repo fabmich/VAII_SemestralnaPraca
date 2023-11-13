@@ -23,11 +23,9 @@ class ZamestnanecServices {
         })
             .then(response => {
                 console.log('Response:', response.data);
-                // Handle the response data here
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Handle the error here
             });
     }
 
@@ -54,6 +52,31 @@ class ZamestnanecServices {
                 console.error('Error:', error);
                 throw error;
             });
+    }
+
+    updateZamestnanec(id, updateZamestnanecRequest) {
+        axios.put(BASE_ZAMESTNANEC_URL + '/' + id, updateZamestnanecRequest, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    deleteZamestnanec(id) {
+        axios.delete(BASE_ZAMESTNANEC_URL + '/' + id)
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
     }
 }
 

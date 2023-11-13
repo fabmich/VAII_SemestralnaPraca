@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work in progress</title>
+
+
+    <link rel="stylesheet" href="createZamestnanecFormStyleSheet.css">
+</head>
+<body>
+<div id="navbar-container"></div>
+<div class="content">
+    <h1>Vytvorenie nového zamestnanca</h1>
+    <form>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="meno">Meno:</label>
+                <input type="text" id="meno" name="meno">
+            </div>
+            <div class="form-group">
+                <label for="priezvisko">Priezvisko:</label>
+                <input type="text" id="priezvisko" name="priezvisko">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="telefon">Telefónne číslo:</label>
+                <input type="text" id="telefon" name="telefon">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="poznamka">Poznámka ku zamestnancovi:</label>
+            <input type="text" id="poznamka" name="poznamka">
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="oddelenie">Oddelenie:</label>
+                    <select id="oddelenie" name="oddelenie">
+                        <option value="Option 1">Personálne</option>
+                        <option value="Option 2">Testovacie</option>
+                        <option value="Option 3">Vývojárske</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="pozicia">Pozícia:</label>
+                    <select id="pozicia" name="pozicia">
+                        <option value="Option A">Tester</option>
+                        <option value="Option B">Vývojár</option>
+                        <option value="Option C">CEO</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="button-container">
+        <button type="submit" class="vytvoritBtn">Vytvoriť</button>
+        <button type="button" class="zrusitBtn">Zrušiť</button>
+    </div>
+</div>
+<div id="footer"></div>
+
+<script src="createZamestnanecScript.js"></script>
+
+</body>
+</html>

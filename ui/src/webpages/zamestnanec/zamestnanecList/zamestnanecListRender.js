@@ -47,20 +47,20 @@ function ZamestnanecListRender() {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <ul class="employee-list">
+                <ul className="employee-list">
                     {listOfZamestnanec.map((zamestnanec) => (
-                        <li key={zamestnanec.id} class="employee-item" onClick={() => handleClickZamestnanecDetail(zamestnanec.id)}>
-                            <div class="row">
-                                <p class="employee-info">ID: {zamestnanec.id}</p>
-                                <p class="employee-info">Meno: {zamestnanec.meno}</p>
-                                <p class="employee-info">Priezvisko: {zamestnanec.priezvisko}</p>
-                                <p class="employee-info">Vek: {zamestnanec.vek}</p>
+                        <li key={zamestnanec.id} className="employee-item" onClick={() => handleClickZamestnanecDetail(zamestnanec.id)}>
+                            <div className="row">
+                                <p className="employee-info">ID: {zamestnanec.id}</p>
+                                <p className="employee-info">Meno: {zamestnanec.meno}</p>
+                                <p className="employee-info">Priezvisko: {zamestnanec.priezvisko}</p>
+                                <p className="employee-info">Vek: {zamestnanec.vek}</p>
                             </div>
-                            <div class="row">
-                                <p class="employee-info">Zamestnany od: {zamestnanec.zamestnanyOd}</p>
-                                <p class="employee-info">Kontrakt do: {zamestnanec.kontraktDo}</p>
-                                <p class="employee-info">Typ zamestnanca: {zamestnanec.typZamestnanca}</p>
-                                <p class="employee-info">Pozicia: {zamestnanec.pozicia}</p>
+                            <div className="row">
+                                <p className="employee-info">Zamestnany od: {zamestnanec.zamestnanyOd}</p>
+                                <p className="employee-info">Kontrakt do: {zamestnanec.kontraktDo}</p>
+                                <p className="employee-info">Typ zamestnanca: {zamestnanec.typZamestnanca}</p>
+                                <p className="employee-info">Pozicia: {zamestnanec.pozicia}</p>
                             </div>
                         </li>
                     ))}

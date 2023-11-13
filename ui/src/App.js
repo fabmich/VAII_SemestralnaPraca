@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import NavBarRender from "./components/navbar/navBarRender";
 import IndexRender from "./webpages/index/indexRender";
 import FooterRender from "./components/footer/footerRender";
-import CreateZamestnanecFormRender from "./webpages/createZamestnanecForm/createZamestnanecFormRender";
+import CreateZamestnanecFormRender from "./webpages/zamestnanec/createZamestnanecForm/createZamestnanecFormRender";
 import {BrowserRouter as Router, Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import ZamestnanecListRender from "./webpages/zamestnanec/zamestnanecList/zamestnanecListRender";

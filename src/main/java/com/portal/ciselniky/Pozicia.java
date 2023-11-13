@@ -7,4 +7,5 @@ public enum Pozicia {
     SEF_PROGRAMATOROV,
     CEO,
     UPRATOVAC,
+    TESTER
 }

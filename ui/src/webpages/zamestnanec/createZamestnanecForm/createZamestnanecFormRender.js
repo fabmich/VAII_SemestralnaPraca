@@ -1,11 +1,13 @@
 import React, {useState} from "react";
-import './createZamestnanecFormStyleSheet.css'
-import ZamestnanecServices from '../../services/zamestnanecServices'
 import {Navigate, useNavigate} from "react-router-dom";
+import './createZamestnanecFormStyleSheet.css'
+import '../../../components/errorMessage/errorMessageStylesheet.css'
+import ZamestnanecServices from '../../../services/zamestnanecServices'
 
-// import Api from '../../open-api.json'
 
 function CreateZamestnanecFormRender() {
+    const zamestnanecServices = new ZamestnanecServices();
+
     const navigate = useNavigate();
 
     const [formState, setFormState] = useState({
@@ -14,8 +16,6 @@ function CreateZamestnanecFormRender() {
         email: "",
         telefon: "",
         poznamka: "",
-        // oddelenie: "",
-        // pozicia: "",
 
         vek: "",
         kontraktDo: "1980-04-09T10:15:30+07:00",
@@ -23,7 +23,6 @@ function CreateZamestnanecFormRender() {
         pozicia: "PROGRAMATOR"
     });
 
-    const zamestnanecServices = new ZamestnanecServices();
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -33,14 +32,71 @@ function CreateZamestnanecFormRender() {
         }));
     };
 
-    const handleButtonVytvorit = () => {
-        zamestnanecServices.saveZamestnanec(formState);
-    };
-
     const handleButtonZrusit = () => {
         navigate('/zamestnanci');
-
     }
+
+    const [validationErrors, setValidationErrors] = useState({});
+    const validateForm = () => {
+        const errors = {};
+
+
+        //MENO validacie
+        if (!formState.meno.trim()) {
+            errors.meno = "Meno je povinné!";
+        } else if
+
+        (!/^[^\d]+$/.test(formState.meno)) {
+            errors.meno = "Meno nesmie obsahovať čísla!";
+        }
+
+
+        //PRIEZVISKO validacie
+        if (!formState.priezvisko.trim()) {
+            errors.priezvisko = "Priezvisko je povinné!";
+        } else if (!/^[^\d]+$/.test(formState.priezvisko)) {
+            errors.priezvisko = "Priezvisko nesmie obsahovať čísla!";
+        }
+
+        //EMAIL validacie
+        if (!formState.email.trim()) {
+            errors.email = "Email je povinný!";}
+        else if (!/\S+@\S+\.\S+/.test(formState.email)) {
+            errors.email = "Neplatný email formát.";
+        }
+
+
+        //TELEFON validacie
+        if (!formState.telefon.trim()) {
+            errors.telefon = "Telefón je povinný!";
+        } else if (!/^[0-9()+\s-]+$/.test(formState.telefon)) {
+            errors.telefon = "Neplatný formát telefónneho čísla";
+        }
+
+        //VEK validacie
+        if (!formState.vek.trim()) {
+            errors.vek = "Vek je povinný!";
+        }
+        else if (!/^\d+$/.test(formState.vek)) {
+            errors.vek = "Vek nie je číslo!";
+        }
+
+
+
+        setValidationErrors(errors);
+
+
+        return Object.keys(errors).length === 0;
+    };
+
+
+    const handleButtonVytvorit = () => {
+        const isValid = validateForm();
+
+        if (isValid) {
+            zamestnanecServices.saveZamestnanec(formState);
+        }
+    };
 
     return (
         <div className="contentForm">
@@ -48,7 +104,8 @@ function CreateZamestnanecFormRender() {
             <form>
                 <div className="form-row">
                     <div className="form-group">
-                        <label htmlFor="meno">Meno:</label>
+                        <label htmlFor="meno">Meno*:</label>
+                        {validationErrors.meno && <span className="error">{validationErrors.meno}</span>}
                         <input
                             type="text"
                             id="meno"
@@ -58,7 +115,8 @@ function CreateZamestnanecFormRender() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="priezvisko">Priezvisko:</label>
+                        <label htmlFor="priezvisko">Priezvisko*:</label>
+                        {validationErrors.priezvisko && <span className="error">{validationErrors.priezvisko}</span>}
                         <input
                             type="text"
                             id="priezvisko"
@@ -70,7 +128,8 @@ function CreateZamestnanecFormRender() {
                 </div>
                 <div className="form-row">
                     <div className="form-group">
-                        <label htmlFor="email">Email:</label>
+                        <label htmlFor="email">Email*:</label>
+                        {validationErrors.email && <span className="error">{validationErrors.email}</span>}
                         <input
                             type="text"
                             id="email"
@@ -80,7 +139,8 @@ function CreateZamestnanecFormRender() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="telefon">Telefónne číslo:</label>
+                        <label htmlFor="telefon">Telefónne číslo*:</label>
+                        {validationErrors.telefon && <span className="error">{validationErrors.telefon}</span>}
                         <input
                             type="text"
                             id="telefon"
@@ -102,7 +162,8 @@ function CreateZamestnanecFormRender() {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="vek">Vek:</label>
+                        <label htmlFor="vek">Vek*:</label>
+                        {validationErrors.vek && <span className="error">{validationErrors.vek}</span>}
                         <input
                             type="text"
                             id="vek"

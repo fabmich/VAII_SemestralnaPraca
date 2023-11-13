@@ -1,0 +1,55 @@
+
+
+.zamestnanec-form {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    /*margin-bottom: 15px;*/
+}
+
+.col {
+    /*flex: 0 0 48%;*/
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+
+.upravBtn {
+    padding: 10px 20px;
+    background-color: #00A000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upravBtn:hover {
+    background-color: #008800;
+}
+
+.vymazBtn {
+    padding: 10px 20px;
+    background-color: #FF0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.vymazBtn:hover {
+    background-color: #CC0000;
+}

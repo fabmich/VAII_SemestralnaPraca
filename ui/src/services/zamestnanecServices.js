@@ -1,9 +1,9 @@
 import axios from 'axios';
+import {useKeycloak} from "@react-keycloak/web";
 
 const BASE_ZAMESTNANEC_URL = 'http://localhost:8080/zamestnanec'; ///zamestnanec/getId
 
 class ZamestnanecServices {
-
     saveZamestnanec(postData) {
 
         // const postData = {
@@ -30,8 +30,13 @@ class ZamestnanecServices {
     }
 
 
-    findAllZamestnanci() {
-        return axios.post(BASE_ZAMESTNANEC_URL + '/find-all')
+    findAllZamestnanci(accessToken) {
+        console.log(accessToken);
+        const headers = {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json', 
+        };
+        return axios.post(BASE_ZAMESTNANEC_URL + '/find-all', null, { headers })
             .then(response => {
                 console.log('Response:', response.data);
                 return response.data;

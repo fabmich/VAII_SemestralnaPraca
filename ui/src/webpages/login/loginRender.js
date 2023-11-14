@@ -10,10 +10,7 @@ function LoginRender() {
 
 
     return (
-
-
         <div >
-
             <div className="authButtons" >
                 {!keycloak.authenticated && (
                     <button

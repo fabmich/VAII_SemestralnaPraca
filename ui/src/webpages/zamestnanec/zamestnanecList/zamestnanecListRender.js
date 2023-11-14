@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import ZamestnanecServices from "../../../services/zamestnanecServices";
 import './zamestnanecListStylesheet.css'
+import {useKeycloak} from "@react-keycloak/web";
 
 
 function ZamestnanecListRender() {
@@ -9,6 +10,7 @@ function ZamestnanecListRender() {
     const [listOfZamestnanec, setListOfZamestnanec] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const { keycloak, initialized } = useKeycloak();
 
     const handleButtonCreateZamestnanecForm = () => {
         navigate('/zamestnanci/create-zamestnanec');
@@ -24,7 +26,7 @@ function ZamestnanecListRender() {
         const fetchZamestnanci = async () => {
             try {
                 const zamestnanecServices = new ZamestnanecServices();
-                const response = await zamestnanecServices.findAllZamestnanci();
+                const response = await zamestnanecServices.findAllZamestnanci(keycloak.token);
                 setListOfZamestnanec(response);
             } catch (error) {
                 console.error("Error fetching Zamestnanci:", error);

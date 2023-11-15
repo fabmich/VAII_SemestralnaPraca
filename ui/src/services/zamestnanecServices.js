@@ -34,7 +34,7 @@ class ZamestnanecServices {
         console.log(accessToken);
         const headers = {
             Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
         };
         return axios.post(BASE_ZAMESTNANEC_URL + '/find-all', null, { headers })
             .then(response => {

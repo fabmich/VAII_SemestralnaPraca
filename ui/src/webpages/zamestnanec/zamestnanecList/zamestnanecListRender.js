@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ZamestnanecServices from "../../../services/zamestnanecServices";
 import './zamestnanecListStylesheet.css'
 import {useKeycloak} from "@react-keycloak/web";
+import FileServices from "../../../services/fileServices";
 
 
 function ZamestnanecListRender() {
@@ -11,6 +12,7 @@ function ZamestnanecListRender() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const { keycloak, initialized } = useKeycloak();
+    const [picture, setPicture] =  useState();
 
     const handleButtonCreateZamestnanecForm = () => {
         navigate('/zamestnanci/create-zamestnanec');
@@ -28,6 +30,12 @@ function ZamestnanecListRender() {
                 const zamestnanecServices = new ZamestnanecServices();
                 const response = await zamestnanecServices.findAllZamestnanci(keycloak.token);
                 setListOfZamestnanec(response);
+
+                const tempId = "aaad1f5d-8ddb-4ed8-bc02-d5cabf109da1";
+                const fileServices = new FileServices();
+                const responseImg = await fileServices.getFile(tempId);
+                setPicture(responseImg);
+
             } catch (error) {
                 console.error("Error fetching Zamestnanci:", error);
             } finally {
@@ -38,8 +46,7 @@ function ZamestnanecListRender() {
     }, []);
 
 
-
-    return (
+        return (
         <div>
             <div className="add-button-container">
                 <button className="add-button" onClick={handleButtonCreateZamestnanecForm}>+</button>
@@ -63,6 +70,9 @@ function ZamestnanecListRender() {
                                 <p className="employee-info">Kontrakt do: {zamestnanec.kontraktDo}</p>
                                 <p className="employee-info">Typ zamestnanca: {zamestnanec.typZamestnanca}</p>
                                 <p className="employee-info">Pozicia: {zamestnanec.pozicia}</p>
+                                <div>
+                                    <img src={`data:image/png;base64,${picture}`} alt="Zamestnanec Image" />
+                                </div>
                             </div>
                         </li>
                     ))}

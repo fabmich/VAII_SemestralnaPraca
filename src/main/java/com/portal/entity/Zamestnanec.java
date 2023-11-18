@@ -48,12 +48,14 @@ public class  Zamestnanec {
     @Column(nullable = false)
     private Pozicia pozicia;
 
+    //TODO zmenit na Projekt
     @ManyToOne
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "uloha_id")
+    @JsonBackReference
     private Uloha uloha;
 
     @OneToMany(mappedBy="priradenyZamestnanec")
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Uloha> prideleneUlohy;
 
 }

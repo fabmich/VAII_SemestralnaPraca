@@ -24,6 +24,7 @@ public class GetUlohaResponse {
     private Vrstva vrstva;
 
 
-    private Zamestnanec sefProjektu;
-    private Zamestnanec priradenyZamestnanec;
+    private UUID zadavatelId;
+    private UUID priradenyZamestnanecId;
+    private String stavUlohy;
 }

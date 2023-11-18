@@ -1,6 +1,7 @@
 package com.portal.request.uloha;
 
 
+import com.portal.ciselniky.StavUlohy;
 import com.portal.ciselniky.Vrstva;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,12 +22,12 @@ public class CreateUlohaRequest {
 
     private OffsetDateTime deadline;
 
-    private UUID sefProjektu;
+    private UUID zadavatel;
 
 
     private Vrstva vrstva;
 
-    private Integer fixVersion;
+    private Double fixVersion;
 
 
 }

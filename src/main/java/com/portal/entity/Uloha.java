@@ -3,6 +3,7 @@ package com.portal.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.portal.ciselniky.StavUlohy;
 import com.portal.ciselniky.Vrstva;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,21 +28,35 @@ public class Uloha {
     @GeneratedValue(strategy= GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false)
     private String nazov;
+
+    @Column(nullable = false)
     private OffsetDateTime datumVytvorenia;
+
     private String popis;
 
     @ManyToOne
-    @JoinColumn(name = "zamestnanec_id")
-    @JsonBackReference
+//    @JoinColumn(name = "zamestnanec_id")
+//    @JsonBackReference
     private Zamestnanec priradenyZamestnanec;
 
+    @Column(nullable = false)
     private OffsetDateTime deadline;
 
+    @Column
     private Vrstva vrstva;
 
-    private Integer fixVersion;
+    @Column
+    private Double fixVersion;
 
     @ManyToOne
-    private Zamestnanec sefProjektu;
+//    @JoinColumn(name = "zamestnanec_id")
+//    @JsonBackReference
+    private Zamestnanec zadavatel;
+
+
+    private StavUlohy stavUlohy;
+
+    private Integer cisloUlohy;
 }

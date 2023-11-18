@@ -1,6 +1,7 @@
 package com.portal.service;
 
 
+import com.portal.ciselniky.StavUlohy;
 import com.portal.dao.UlohaDao;
 import com.portal.dao.ZamestnanecDao;
 import com.portal.entity.Uloha;
@@ -11,6 +12,9 @@ import com.portal.response.GetUlohaResponse;
 import com.portal.validator.uloha.ExistsUloha;
 import com.portal.validator.zamestnanec.ExistsZamestnanec;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -32,22 +36,32 @@ public class UlohaService {
 
 
     public List<Uloha> findAll() {
+//        Pageable pageable = PageRequest.of(0,2);
         return ulohaDao.findAll();
+
     }
     public UUID save(CreateUlohaRequest request) {
-        return ulohaDao.save(Uloha.builder()
+
+        var uloha =  ulohaDao.save(Uloha.builder()
                 .nazov(request.getNazov())
                 .datumVytvorenia(OffsetDateTime.now())
                 .popis(request.getPopis())
                 .deadline(request.getDeadline())
-                .sefProjektu(zamestnanecDao.getReferenceById(request.getSefProjektu()))
+                .zadavatel(zamestnanecDao.getReferenceById(request.getZadavatel()))
                 .vrstva(request.getVrstva())
                 .fixVersion(request.getFixVersion())
+                .stavUlohy(StavUlohy.BACKLOG)
 
-                .priradenyZamestnanec(zamestnanecDao.existsById(request.getPriradenyZamestnanec()) ?
-                        zamestnanecDao.getReferenceById(request.getPriradenyZamestnanec()) : zamestnanecDao.getReferenceById(request.getSefProjektu()))
+                .priradenyZamestnanec(zamestnanecDao.getReferenceById(request.getPriradenyZamestnanec()))
 
-                .build()).getId();
+                .build());
+
+        var zamestnanec = zamestnanecDao.findById(request.getPriradenyZamestnanec()).get();
+        zamestnanec.getPrideleneUlohy().add(uloha);
+        zamestnanecDao.save(zamestnanec);
+
+        return uloha.getId();
+
     }
 
     public void delete(@ExistsUloha UUID id) {
@@ -63,7 +77,7 @@ public class UlohaService {
         uloha.setPopis(request.getPopis());
         uloha.setNazov(request.getNazovZakaznika());
         uloha.setDeadline(request.getDeadline());
-        uloha.setSefProjektu(zamestnanecDao.getReferenceById(request.getSefProjektu()));
+        uloha.setZadavatel(zamestnanecDao.getReferenceById(request.getSefProjektu()));
         uloha.setPriradenyZamestnanec(zamestnanecDao.existsById(request.getPriradenyZamestnanec()) ?
                 zamestnanecDao.getReferenceById(request.getPriradenyZamestnanec()) : zamestnanecDao.getReferenceById(request.getSefProjektu()));
 
@@ -97,9 +111,9 @@ public class UlohaService {
 
         uloha.getPriradenyZamestnanec().setUloha(null);
         //priradi default -  spravcu
-        uloha.setPriradenyZamestnanec(zamestnanecDao.getReferenceById(uloha.getSefProjektu().getId()));
+        uloha.setPriradenyZamestnanec(zamestnanecDao.getReferenceById(uloha.getZadavatel().getId()));
 
-        var sef = zamestnanecDao.findById(uloha.getSefProjektu().getId()).get();
+        var sef = zamestnanecDao.findById(uloha.getZadavatel().getId()).get();
         sef.setUloha(ulohaDao.getReferenceById(ulohaId));
 
         ulohaDao.save(uloha);

@@ -31,7 +31,7 @@ class ZamestnanecServices {
 
 
     findAllZamestnanci(accessToken) {
-        console.log(accessToken);
+        // console.log(accessToken);
         const headers = {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
@@ -80,6 +80,19 @@ class ZamestnanecServices {
             })
             .catch(error => {
                 console.error('Error:', error);
+            });
+
+    }
+
+    getUlohyZamestnanca(id) {
+        return axios.get(BASE_ZAMESTNANEC_URL + '/' + id + "/getUlohy")
+            .then(response => {
+                console.log('Response:', response.data);
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                throw error;
             });
 
     }

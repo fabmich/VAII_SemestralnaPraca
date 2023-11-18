@@ -29,7 +29,7 @@ function NavBar() {
                 <ul>
                     <li><Link to="/home">Domov</Link></li>
                     <li><Link to="/zamestnanci">Zamestnanci</Link></li>
-                    <li><Link to="/tasks">Úlohy</Link></li>
+                    <li><Link to="/ulohy">Úlohy</Link></li>
                     <li><Link to="/projects">Projekty</Link></li>
                     <li><Link to="/contacts">Kontakty</Link></li>
                 </ul>

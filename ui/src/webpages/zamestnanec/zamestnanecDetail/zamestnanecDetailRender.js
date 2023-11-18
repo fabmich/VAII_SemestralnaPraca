@@ -6,9 +6,13 @@ import ZamestnanecServices from "../../../services/zamestnanecServices";
 function ZamestnanecDetailRender() {
     const zamestnanecServices = new ZamestnanecServices();
     const navigate = useNavigate();
+    const [ListOfUlohy, setListOfUlohy] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
-    const { id } = useParams();
+    const {id} = useParams();
+
+
 
     const [zamestnanecDetails, setZamestnanecDetails] = useState({
         id: '',
@@ -37,8 +41,24 @@ function ZamestnanecDetailRender() {
         fetchDetailZamestnanca();
     }, [id]);
 
+
+    useEffect(() => {
+        const fetchUlohy = async () => {
+            try {
+                const zamestnanecServices = new ZamestnanecServices();
+                const response = await zamestnanecServices.getUlohyZamestnanca(id);
+                setListOfUlohy(response);
+            } catch (error) {
+                console.error("Error fetching UlohyZamestnanca:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchUlohy();
+    }, [id]);
+
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setZamestnanecDetails((prevDetails) => ({
             ...prevDetails,
             [name]: value,
@@ -59,7 +79,7 @@ function ZamestnanecDetailRender() {
         // const isValid = validateForm();
         //
         // if (isValid) {
-            zamestnanecServices.updateZamestnanec(zamestnanecDetails.id ,updateZamestnanecRequest);
+        zamestnanecServices.updateZamestnanec(zamestnanecDetails.id, updateZamestnanecRequest);
         // }
     };
 
@@ -72,26 +92,30 @@ function ZamestnanecDetailRender() {
 
     return (
         <div>
-            <form id="zamestnanecForm" className="zamestnanec-form" >
+            <form id="zamestnanecForm" className="zamestnanec-form">
                 <div className="row">
                     <div className="col">
                         <label htmlFor="id">ID:</label>
-                        <input type="text" id="id" name="id" value={zamestnanecDetails?.id || ''} onChange={handleInputChange} required />
+                        <input type="text" id="id" name="id" value={zamestnanecDetails?.id || ''}
+                               onChange={handleInputChange} required/>
                     </div>
                     <div className="col">
                         <label htmlFor="meno">Meno:</label>
-                        <input type="text" id="meno" name="meno" value={zamestnanecDetails?.meno || ''} onChange={handleInputChange} required />
+                        <input type="text" id="meno" name="meno" value={zamestnanecDetails?.meno || ''}
+                               onChange={handleInputChange} required/>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col">
                         <label htmlFor="priezvisko">Priezvisko:</label>
-                        <input type="text" id="priezvisko" name="priezvisko" value={zamestnanecDetails?.priezvisko || ''}  onChange={handleInputChange} required />
+                        <input type="text" id="priezvisko" name="priezvisko"
+                               value={zamestnanecDetails?.priezvisko || ''} onChange={handleInputChange} required/>
                     </div>
                     <div className="col">
                         <label htmlFor="vek">Vek:</label>
-                        <input type="text" id="vek" name="vek" value={zamestnanecDetails?.vek || ''}  onChange={handleInputChange} required />
+                        <input type="text" id="vek" name="vek" value={zamestnanecDetails?.vek || ''}
+                               onChange={handleInputChange} required/>
                     </div>
                 </div>
 
@@ -103,11 +127,13 @@ function ZamestnanecDetailRender() {
 
                     <div className="col">
                         <label htmlFor="zamestnanyOd">Zamestnaný Od:</label>
-                        <input type="text" id="zamestnanyOd" name="zamestnanyOd" value={zamestnanecDetails?.zamestnanyOd || ''} onChange={handleInputChange} required />
+                        <input type="text" id="zamestnanyOd" name="zamestnanyOd"
+                               value={zamestnanecDetails?.zamestnanyOd || ''} onChange={handleInputChange} required/>
                     </div>
                     <div className="col">
                         <label htmlFor="kontraktDo">Kontrakt Do:</label>
-                        <input type="text" id="kontraktDo" name="kontraktDo" value={zamestnanecDetails?.kontraktDo || ''} onChange={handleInputChange} required />
+                        <input type="text" id="kontraktDo" name="kontraktDo"
+                               value={zamestnanecDetails?.kontraktDo || ''} onChange={handleInputChange} required/>
                     </div>
                 </div>
 
@@ -115,14 +141,15 @@ function ZamestnanecDetailRender() {
 
                     <div className="col">
                         <label htmlFor="typZamestnanca">Typ Zamestnanca:</label>
-                        <input type="text" id="typZamestnanca" name="typZamestnanca" value={zamestnanecDetails?.typZamestnanca || ''} onChange={handleInputChange} required />
+                        <input type="text" id="typZamestnanca" name="typZamestnanca"
+                               value={zamestnanecDetails?.typZamestnanca || ''} onChange={handleInputChange} required/>
                     </div>
                     <div className="col">
                         <label htmlFor="Pozicia">Pozícia:</label>
-                        <input type="text" id="Pozicia" name="Pozicia" value={zamestnanecDetails?.pozicia || ''} onChange={handleInputChange} required />
+                        <input type="text" id="Pozicia" name="Pozicia" value={zamestnanecDetails?.pozicia || ''}
+                               onChange={handleInputChange} required/>
                     </div>
                 </div>
-
 
 
                 <div className="buttons">
@@ -130,6 +157,28 @@ function ZamestnanecDetailRender() {
                     <button type="reset" className="vymazBtn" onClick={handleButtonVymaz}>Vymaž</button>
                 </div>
             </form>
+
+            <h2>Ulohy List</h2>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <ul className="ulohy-list">
+                    {ListOfUlohy.map((uloha) => (
+                        <li key={uloha.id} className="uloha-item">
+                            <div className="row">
+                                <p className="uloha-info">ID: {uloha.id}</p>
+                                <p className="uloha-info">Nazov: {uloha.nazov}</p>
+                            </div>
+                            <div className="row">
+                                <p className="uloha-info">Zadavatel: {uloha.zadavatel.meno + " " + uloha.zadavatel.priezvisko}</p>
+                                <p className="uloha-info">Stav ulohy: {uloha.stavUlohy}</p>
+                                <p className="uloha-info">Cislo ulohy: {uloha.cisloUlohy}</p>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+
+            )}
         </div>
     );
 }

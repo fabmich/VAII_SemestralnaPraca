@@ -1,0 +1,41 @@
+
+.add-button-container {
+    text-align: right;
+    margin-top: 60px;
+    margin-right: 30px
+}
+
+.add-button {
+    background-color: green;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.ulohy-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.uloha-item {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.uloha-item .row {
+    overflow: hidden;
+}
+
+.uloha-item .uloha-info {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.uloha-item .row:last-child {
+    display: block;
+}

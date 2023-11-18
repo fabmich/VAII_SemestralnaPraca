@@ -1,7 +1,16 @@
 package com.portal.ciselniky;
 
+import lombok.Getter;
+
+@Getter
 public enum TypZamestnanca {
 
-    TPP,
-    DOHODAR
+    TPP ("Trvalý pracovný pomer"),
+    DOHODAR ("Dohodár");
+
+    private final String nazov;
+
+    TypZamestnanca (String pNazov) {
+        this.nazov = pNazov;
+    }
 }

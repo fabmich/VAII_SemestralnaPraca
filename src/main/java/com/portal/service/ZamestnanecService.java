@@ -1,7 +1,9 @@
 package com.portal.service;
 
 
+import com.portal.dao.UlohaDao;
 import com.portal.dao.ZamestnanecDao;
+import com.portal.entity.Uloha;
 import com.portal.entity.Zamestnanec;
 import com.portal.mapper.ZamestnanecMapper;
 import com.portal.request.FindAllZamestnanecRequest;
@@ -20,7 +22,9 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +34,7 @@ public class ZamestnanecService {
     private final ZamestnanecDao zamestnanecDao;
     private final ZamestnanecMapper zamestnanecMapper;
     private final EntityManager entityManager;
-
+    private final UlohaDao ulohaDao;
 
     public List<Zamestnanec> findAll() {
 
@@ -63,6 +67,7 @@ public class ZamestnanecService {
     public GetZamestnanecResponse getZamestnanec(@ExistsZamestnanec UUID id) {
         var zamestnanec = zamestnanecDao.findById(id).get();
 
+
         return zamestnanecMapper.toGetZamestnanecResponse(zamestnanec);
     }
 
@@ -80,4 +85,8 @@ public class ZamestnanecService {
     }
 
 
+    public Set<Uloha> getUlohy(@ExistsZamestnanec UUID id) {
+                return zamestnanecDao.findById(id).get().getPrideleneUlohy();
+//                return ulohaDao.findAll().stream().filter(ul -> ul.getPriradenyZamestnanec().getId().equals(id)).collect(Collectors.toSet());
+    }
 }

@@ -2,6 +2,7 @@ package com.portal.controller;
 
 
 import com.portal.dao.ZamestnanecDao;
+import com.portal.entity.Uloha;
 import com.portal.entity.Zamestnanec;
 import com.portal.request.FindAllZamestnanecRequest;
 import com.portal.request.zamestnanec.CreateZamestnanecRequest;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -70,5 +72,11 @@ public class ZamestnanecController {
     @ResponseStatus(HttpStatus.OK)
     public List<Zamestnanec> findAllFilter(@PathVariable UUID id, @PathVariable String meno) {
         return zamestnanecDao.findAll();
+    }
+
+    @GetMapping("/{id}/getUlohy")
+    public Set<Uloha> getUlohyZamestnanca(@PathVariable UUID id) {
+
+        return zamestnanecService.getUlohy(id);
     }
 }

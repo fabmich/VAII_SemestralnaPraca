@@ -1,0 +1,37 @@
+services:
+  postgres:
+    container_name: postgresDB
+    image: 'postgres:14.4'
+#    healthcheck:
+#      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+#      timeout: 45s
+#      interval: 10s
+#      retries: 10
+
+    environment:
+      - 'POSTGRES_DB=postgres'
+      - 'POSTGRES_DB=keycloak'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5432:5432'
+    mem_limit: 4g
+
+  keycloak:
+    container_name: keycloak
+    image: 'jboss/keycloak:latest'
+    environment:
+      - 'DB_VENDOR=POSTGRES'
+      - 'DB_ADDR=postgres'
+      - 'DB_DATABASE=keycloak'
+      - 'DB_USER=postgres'
+      - 'DB_PASSWORD=postgres'
+      - 'KEYCLOAK_IMPORT=docker/realm-export-3.json'
+    ports:
+      - '8090:8080'
+    depends_on:
+      - postgres
+#    volumes:
+#        - docker/realm-export-2.json
+#        - ./keycloak-init.sh:/docker/realm-export-2.json
+#    command: [ "bash", "/opt/jboss/import-realm.sh" ]

@@ -13,6 +13,8 @@ import keycloak from "./keycloak";
 import {ReactKeycloakProvider} from "@react-keycloak/web";
 import PrivateRoute from "./helpers/privateRoute";
 import LoginRender from "./webpages/login/loginRender";
+import UlohaCreateFormRender from "./webpages/uloha/ulohaCreateForm/ulohaCreateFormRender";
+import UlohaDetailRender from "./webpages/uloha/ulohaDetail/ulohaDetailRender";
 
 
 function App() {
@@ -72,6 +74,8 @@ function MainContent() {
 
 
                         <Route path="/ulohy" element={<UlohaListRender/>}/>
+                        <Route path="/ulohy/create-uloha" element={<UlohaCreateFormRender/>}/>
+                        <Route path="/ulohy/:id/detail" element={<UlohaDetailRender/>}/>
 
                             {/*<Route path="/tasks" component={Tasks} />*/}
                             {/*<Route path="/projects" component={Projects} />*/}

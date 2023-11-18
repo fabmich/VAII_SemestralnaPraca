@@ -26,7 +26,7 @@ function IndexRender() {
                             <p>Zamestnanci</p>
                         </div>
                     </Link>
-                    <Link to="/workInProgress" className="tile">
+                    <Link to="/ulohy" className="tile">
                         <div className="tile-content">
                             <img src={taskImage} alt="Úlohy"/>
                             <p>Úlohy</p>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import {useKeycloak} from "@react-keycloak/web";
-import ZamestnanecServices from "../../../services/zamestnanecServices";
 import UlohaServices from "../../../services/ulohaServices";
 
 
@@ -13,12 +12,12 @@ function UlohaListRender() {
 
 
     const handleButtonCreateUloha = () => {
-        navigate('/uloha/create-uloha');
+        navigate('/ulohy/create-uloha');
     };
 
     const handleClickUlohaDetail = (id) => {
 
-        navigate('/uloha/' + id + '/detail');
+        navigate('/ulohy/' + id + '/detail');
 
     };
 

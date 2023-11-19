@@ -20,7 +20,8 @@ function CreateZamestnanecFormRender() {
         vek: "",
         kontraktDo: "1980-04-09T10:15:30+07:00",
         typZamestnanca: "TPP",
-        pozicia: "PROGRAMATOR"
+        pozicia: "PROGRAMATOR",
+        fotkaZamestnanca: null
     });
 
 
@@ -30,6 +31,12 @@ function CreateZamestnanecFormRender() {
             ...prevState,
             [name]: value,
         }));
+    };
+
+    const [file, setFile] = useState(null);
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
     };
 
     const handleButtonZrusit = () => {
@@ -94,7 +101,7 @@ function CreateZamestnanecFormRender() {
         const isValid = validateForm();
 
         if (isValid) {
-            zamestnanecServices.saveZamestnanec(formState);
+            zamestnanecServices.saveZamestnanec(formState, file);
         }
     };
 
@@ -203,6 +210,11 @@ function CreateZamestnanecFormRender() {
                                 <option value="CEO">CEO</option>
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div>
+                        <input type="file" onChange={handleFileChange} />
                     </div>
                 </div>
             </form>

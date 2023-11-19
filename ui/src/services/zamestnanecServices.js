@@ -5,29 +5,53 @@ import {useEffect, useState} from "react";
 const BASE_ZAMESTNANEC_URL = 'http://localhost:8080/zamestnanec'; ///zamestnanec/getId
 
 class ZamestnanecServices {
-    saveZamestnanec(postData) {
+    saveZamestnanec(postData, file) {
+        // Check if file is not null before attempting to upload
+        if (file !== null) {
+            const formData = new FormData();
+            formData.append('file', file);
 
-        // const postData = {
-        //     meno:"Feri",
-        //     priezvisko:"Mrkva 222",
-        //     vek:"1",
-        //     kontraktDo:"1980-04-09T10:15:30+07:00",
-        //     typZamestnanca:"TPP",
-        //     pozicia:"PROGRAMATOR"
-        //
-        // };
-
-        axios.post(BASE_ZAMESTNANEC_URL + '/save', postData, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => {
-                console.log('Response:', response.data);
+            // Upload the file
+            return axios.post("http://localhost:8080/file/upload", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(fileUploadResponse => {
+                    // Assuming the file upload response contains the necessary data, e.g., an ID
+                    postData.fotkaZamestnanca = fileUploadResponse.data;
+
+                    // Save the Zamestnanec
+                    return axios.post(BASE_ZAMESTNANEC_URL + '/save', postData, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                })
+                .then(zamestnanecSaveResponse => {
+                    // Handle the response of saving the Zamestnanec if needed
+                    console.log('Zamestnanec save response:', zamestnanecSaveResponse.data);
+                })
+                .catch(error => {
+                    // Handle errors from either request
+                    console.error('Error:', error);
+                });
+        } else {
+            // If file is null, just save the Zamestnanec without uploading
+            return axios.post(BASE_ZAMESTNANEC_URL + '/save', postData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(zamestnanecSaveResponse => {
+                    // Handle the response of saving the Zamestnanec if needed
+                    console.log('Zamestnanec save response:', zamestnanecSaveResponse.data);
+                })
+                .catch(error => {
+                    // Handle errors from the request
+                    console.error('Error:', error);
+                });
+        }
     }
 
 

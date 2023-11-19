@@ -1,6 +1,7 @@
 package com.portal.service;
 
 
+import com.portal.dao.FileDao;
 import com.portal.dao.UlohaDao;
 import com.portal.dao.ZamestnanecDao;
 import com.portal.entity.Uloha;
@@ -35,6 +36,7 @@ public class ZamestnanecService {
     private final ZamestnanecMapper zamestnanecMapper;
     private final EntityManager entityManager;
     private final UlohaDao ulohaDao;
+    private final FileDao fileDao;
 
     public List<Zamestnanec> findAll() {
 
@@ -56,11 +58,19 @@ public class ZamestnanecService {
                 .build()
         );
 
+        if (request.getFotkaZamestnanca() != null) {
+            zamestnanec.setFotkaZamestnanca(fileDao.getReferenceById(request.getFotkaZamestnanca()));
+        }
+
         return zamestnanec.getId();
 
     }
 
     public void delete(@ExistsZamestnanec UUID id) {
+
+        var obrazokId =  zamestnanecDao.findById(id).get().getFotkaZamestnanca().getId();
+        if (obrazokId != null) fileDao.delete(fileDao.findById(obrazokId).get());
+
         zamestnanecDao.deleteById(id);
     }
 

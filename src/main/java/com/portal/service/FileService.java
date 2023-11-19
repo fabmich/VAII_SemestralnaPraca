@@ -29,11 +29,11 @@ public class FileService {
                 .build();
 
         File savedFile = fileDao.save(fileToSave);
-        return UUID.fromString(savedFile.getId());
+        return savedFile.getId();
     }
 
 //todo valdiacie
-    public File getFile(String id) {
+    public File getFile(UUID id) {
         return fileDao.findById(id).get();
     }
 
@@ -41,7 +41,7 @@ public class FileService {
         return fileDao.findAll().stream();
     }
 
-    public String getBase64File(String id) {
+    public String getBase64File(UUID id) {
         File file = fileDao.findById(id).orElse(null);
 
         if (file != null) {

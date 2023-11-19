@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface FileDao extends JpaRepository<File, String> {
+public interface FileDao extends JpaRepository<File, UUID> {
 
 }

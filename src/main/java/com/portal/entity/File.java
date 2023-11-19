@@ -15,14 +15,13 @@ import java.util.UUID;
 @Table(name = "files")
 @Getter
 @Setter
-@Data
 @RequiredArgsConstructor
 @SuperBuilder
 public class File {
 
     @Id
     @UuidGenerator
-    public String id;
+    public UUID id;
 
 
     private String name;

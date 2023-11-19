@@ -58,4 +58,7 @@ public class  Zamestnanec {
     @JsonBackReference
     private Set<Uloha> prideleneUlohy;
 
+    @OneToOne
+    @JoinColumn(name = "file_id")
+    private File fotkaZamestnanca;
 }

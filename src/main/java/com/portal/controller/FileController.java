@@ -1,7 +1,6 @@
 package com.portal.controller;
 
 import com.portal.entity.File;
-import com.portal.response.file.FileResponseMessage;
 import com.portal.service.FileService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +49,7 @@ public class FileController {
 //    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+    public ResponseEntity<byte[]> getFile(@PathVariable UUID id) {
         File file = fileService.getFile(id);
 
         if (file != null) {
@@ -65,7 +64,7 @@ public class FileController {
     }
 
     @GetMapping("/base64/{id}")
-    public String getFileBase64(@PathVariable String id) {
+    public String getFileBase64(@PathVariable UUID id) {
         return fileService.getBase64File(id);
 
 

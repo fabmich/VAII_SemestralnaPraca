@@ -15,29 +15,81 @@
 }
 
 .employee-list {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
-    margin-top: 60px;
-    margin-bottom: 60px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.employee-item {
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
+.employee-tile {
+    width: 23%; /* Adjust as needed, considering margins and padding */
+    margin: 1%;
+    border: 1px solid #ddd;
     padding: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.3s;
+    aspect-ratio: 1; /* Set aspect-ratio to 1 for a square shape */
 }
 
-/* (ID, Meno, Priezvisko, Vek) */
-.employee-item .row {
-    overflow: hidden;
+.employee-tile:hover {
+    transform: scale(1.05);
 }
 
-.employee-item .employee-info {
-    display: inline-block;
-    margin-right: 20px;
+.employee-img-container {
+    text-align: center;
 }
 
-/* (Zamestnany od, Kontrakt do, Typ zamestnanca, Pozicia) */
-.employee-item .row:last-child {
-    display: block;
+.employee-img-container img {
+    max-width: 100%;
+    max-height: 150px; /* Adjust the max height as needed */
+    object-fit: cover;
+    border-radius: 8px; /* Optional: Add border radius for rounded corners */
+}
+
+.employee-info-container {
+    text-align: center;
+}
+
+.employee-info {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .employee-tile {
+        width: 48%; /* Adjust for smaller screens */
+    }
+}
+
+/* Responsive styles for mobile screens */
+@media (max-width: 480px) {
+    .employee-tile {
+        width: 100%; /* Full width on mobile screens */
+    }
+}
+
+.employee-tile:hover {
+    transform: scale(1.05);
+}
+
+.employee-img-container {
+    text-align: center;
+}
+
+.employee-img-container img {
+    max-width: 100%;
+    max-height: 100%; /* Max height 100% to maintain aspect ratio */
+    object-fit: cover;
+    border-radius: 8px; /* Optional: Add border radius for rounded corners */
+}
+
+.employee-info-container {
+    text-align: center;
+}
+
+.employee-info {
+    margin: 5px 0;
+    font-size: 16px; /* Increase font size */
 }

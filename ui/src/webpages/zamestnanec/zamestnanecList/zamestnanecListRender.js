@@ -11,6 +11,7 @@ const BASE64_STRING_FOR_PLACEHOLDER_IMAGE = "iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAY
 function ZamestnanecListRender() {
 
     const [listOfZamestnanec, setListOfZamestnanec] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const {keycloak, initialized} = useKeycloak();
@@ -53,24 +54,17 @@ function ZamestnanecListRender() {
             ) : (
                 <ul className="employee-list">
                     {listOfZamestnanec.map((zamestnanec) => (
-                        <li key={zamestnanec.id} className="employee-item"
-                            onClick={() => handleClickZamestnanecDetail(zamestnanec.id)}>
-                            <div className="row">
-                                <p className="employee-info">ID: {zamestnanec.id}</p>
+                        <li key={zamestnanec.id} className="employee-tile" onClick={() => handleClickZamestnanecDetail(zamestnanec.id)}>
+                            <div className="employee-img-container">
+                                <img
+                                    src={`data:image/png;base64,${zamestnanec.fotkaZamestnanca ? zamestnanec.fotkaZamestnanca.data : BASE64_STRING_FOR_PLACEHOLDER_IMAGE}`}
+                                    alt="Zamestnanec Image"/>
+                            </div>
+                            <div className="employee-info-container">
                                 <p className="employee-info">Meno: {zamestnanec.meno}</p>
                                 <p className="employee-info">Priezvisko: {zamestnanec.priezvisko}</p>
-                                <p className="employee-info">Vek: {zamestnanec.vek}</p>
-                            </div>
-                            <div className="row">
-                                <p className="employee-info">Zamestnany od: {zamestnanec.zamestnanyOd}</p>
-                                <p className="employee-info">Kontrakt do: {zamestnanec.kontraktDo}</p>
-                                <p className="employee-info">Typ zamestnanca: {zamestnanec.typZamestnanca}</p>
                                 <p className="employee-info">Pozicia: {zamestnanec.pozicia}</p>
-                                <div>
-                                    {/* Use the picture data for the specific employee */}
-                                    <img
-                                        src={`data:image/png;base64,${zamestnanec.fotkaZamestnanca ? zamestnanec.fotkaZamestnanca.data : BASE64_STRING_FOR_PLACEHOLDER_IMAGE}`}
-                                        alt="Zamestnanec Image"/></div>
+                                <p className="employee-info">Typ zamestnanca: {zamestnanec.typZamestnanca}</p>
                             </div>
                         </li>
                     ))}

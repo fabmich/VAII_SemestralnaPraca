@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.portal.ciselniky.Pozicia;
 import com.portal.ciselniky.TypZamestnanca;
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

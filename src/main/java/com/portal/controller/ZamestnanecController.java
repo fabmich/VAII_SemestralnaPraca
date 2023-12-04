@@ -10,8 +10,10 @@ import com.portal.request.zamestnanec.UpravZamestnancaRequest;
 import com.portal.response.GetZamestnanecResponse;
 import com.portal.service.ZamestnanecService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional
 @RequestMapping("/zamestnanec")
+@Validated
 public class ZamestnanecController {
 
     private final ZamestnanecService zamestnanecService;
@@ -37,7 +40,7 @@ public class ZamestnanecController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public UUID createZamestnanec(@RequestBody CreateZamestnanecRequest request) {
+    public UUID createZamestnanec(@RequestBody @Valid CreateZamestnanecRequest request) {
         return zamestnanecService.save(request);
 
     }

@@ -16,6 +16,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -40,12 +41,11 @@ public class ZamestnanecService {
 
     public List<Zamestnanec> findAll() {
 
-
         return zamestnanecDao.findAll();
 
     }
 
-    public UUID save(CreateZamestnanecRequest request) {
+    public UUID save( CreateZamestnanecRequest request) {
 
         var zamestnanec = zamestnanecDao.save(Zamestnanec.builder()
                 .meno(request.getMeno())

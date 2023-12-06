@@ -18,14 +18,15 @@ public class CreateZamestnanecRequest {
 
 
 
-    @NotEmpty
+    @NotEmpty(message = "Meno je povinné")
     private String meno;
 
-    @NotNull
+    @NotEmpty(message = "Priezvisko je povinné")
     private String priezvisko;
 
-    @Min(1)
-    @Max(120)
+    @Min(value = 1, message = "Vek je menej ako 1")
+    @Max(value = 120, message = "Vek presiahol hornú hranicu")
+    @NotNull(message = "Vek je povinný")
     private Integer vek;
 
     private OffsetDateTime kontraktDo;

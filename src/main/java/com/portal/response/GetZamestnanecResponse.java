@@ -32,5 +32,7 @@ public class GetZamestnanecResponse {
     private Pozicia pozicia;
 
     private Uloha uloha;
+    private String telefonneCislo;
+    private String email;
 
 }

@@ -23,7 +23,9 @@ import java.util.UUID;
 @Repository
 public interface ZamestnanecDao extends JpaRepository<Zamestnanec, UUID>, JpaSpecificationExecutor<Zamestnanec> {
 
-    public Zamestnanec findByMenoAndPriezvisko(String meno, String priezvisko);
+    Zamestnanec findByMenoAndPriezvisko(String meno, String priezvisko);
+
+     Zamestnanec findByEmailOrTelefonneCisloOrDisplayName(String email, String telefonneCislo, String displayName);
 
 
 }

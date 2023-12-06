@@ -19,4 +19,6 @@ public class UpravZamestnancaRequest {
 
     private TypZamestnanca typZamestnanca;
     private Pozicia pozicia;
+    private String telefonneCislo;
+    private String email;
 }

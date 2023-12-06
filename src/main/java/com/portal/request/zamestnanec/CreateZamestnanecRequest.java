@@ -29,6 +29,12 @@ public class CreateZamestnanecRequest {
     @NotNull(message = "Vek je povinný")
     private Integer vek;
 
+    @NotNull(message = "Telefónne číslo nesmie byť null")
+    private String telefonneCislo;
+
+    @Email
+    private String email;
+
     private OffsetDateTime kontraktDo;
 
     private TypZamestnanca typZamestnanca;

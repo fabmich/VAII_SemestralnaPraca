@@ -11,6 +11,7 @@ import com.portal.request.FindAllZamestnanecRequest;
 import com.portal.request.zamestnanec.CreateZamestnanecRequest;
 import com.portal.request.zamestnanec.UpravZamestnancaRequest;
 import com.portal.response.GetZamestnanecResponse;
+import com.portal.validator.zamestnanec.CreateZamestnanecControl;
 import com.portal.validator.zamestnanec.ExistsZamestnanec;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -45,7 +46,7 @@ public class ZamestnanecService {
 
     }
 
-    public UUID save( CreateZamestnanecRequest request) {
+    public UUID save(@CreateZamestnanecControl CreateZamestnanecRequest request) {
 
         var zamestnanec = zamestnanecDao.save(Zamestnanec.builder()
                 .meno(request.getMeno())
@@ -55,6 +56,8 @@ public class ZamestnanecService {
                 .typZamestnanca(request.getTypZamestnanca())
                 .pozicia(request.getPozicia())
                 .zamestnanyOd(OffsetDateTime.now())
+                .telefonneCislo(request.getTelefonneCislo())
+                .email(request.getEmail().toLowerCase())
                 .build()
         );
 
@@ -68,8 +71,8 @@ public class ZamestnanecService {
 
     public void delete(@ExistsZamestnanec UUID id) {
 
-        var obrazokId =  zamestnanecDao.findById(id).get().getFotkaZamestnanca().getId();
-        if (obrazokId != null) fileDao.delete(fileDao.findById(obrazokId).get());
+        var obrazok = zamestnanecDao.findById(id).get().getFotkaZamestnanca();
+        if (obrazok != null) fileDao.delete(fileDao.findById(obrazok.getId()).get());
 
         zamestnanecDao.deleteById(id);
     }
@@ -96,7 +99,7 @@ public class ZamestnanecService {
 
 
     public Set<Uloha> getUlohy(@ExistsZamestnanec UUID id) {
-                return zamestnanecDao.findById(id).get().getPrideleneUlohy();
+        return zamestnanecDao.findById(id).get().getPrideleneUlohy();
 //                return ulohaDao.findAll().stream().filter(ul -> ul.getPriradenyZamestnanec().getId().equals(id)).collect(Collectors.toSet());
     }
 }

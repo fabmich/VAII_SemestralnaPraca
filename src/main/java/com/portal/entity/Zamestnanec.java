@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.OffsetDateTime;
 import java.util.Set;
@@ -26,16 +27,23 @@ public class  Zamestnanec {
     @GeneratedValue(strategy= GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 64)
     private String meno;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 64)
     private String priezvisko;
 
     @Column(nullable = false)
     private  Integer vek;
 
+    @Column(unique = true, length = 64)
     private String displayName;
+
+    @Column(nullable = false, unique = true, length = 20)
+    private String telefonneCislo;
+
+    @Column(nullable = false, unique = true, length = 254)
+    private String email;
 
     @Column(nullable = false)
     private OffsetDateTime zamestnanyOd;

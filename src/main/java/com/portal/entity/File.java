@@ -21,7 +21,7 @@ public class File {
 
     @Id
     @UuidGenerator
-    public UUID id;
+    private UUID id;
 
 
     private String name;

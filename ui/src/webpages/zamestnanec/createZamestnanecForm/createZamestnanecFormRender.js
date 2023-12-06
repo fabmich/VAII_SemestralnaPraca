@@ -14,7 +14,7 @@ function CreateZamestnanecFormRender() {
         meno: "",
         priezvisko: "",
         email: "",
-        telefon: "",
+        telefonneCislo: "",
         poznamka: "",
 
         vek: "",
@@ -74,9 +74,9 @@ function CreateZamestnanecFormRender() {
 
 
         //TELEFON validacie
-        if (!formState.telefon.trim()) {
+        if (!formState.telefonneCislo.trim()) {
             errors.telefon = "Telefón je povinný!";
-        } else if (!/^[0-9()+\s-]+$/.test(formState.telefon)) {
+        } else if (!/^[0-9()+\s-]+$/.test(formState.telefonneCislo)) {
             errors.telefon = "Neplatný formát telefónneho čísla";
         }
 
@@ -150,9 +150,9 @@ function CreateZamestnanecFormRender() {
                         {validationErrors.telefon && <span className="error">{validationErrors.telefon}</span>}
                         <input
                             type="text"
-                            id="telefon"
-                            name="telefon"
-                            value={formState.telefon}
+                            id="telefonneCislo"
+                            name="telefonneCislo"
+                            value={formState.telefonneCislo}
                             onChange={handleInputChange}
                         />
                     </div>

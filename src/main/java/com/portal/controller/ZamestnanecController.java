@@ -46,7 +46,7 @@ public class ZamestnanecController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteZamestnanec(@PathVariable UUID id) {
 
         zamestnanecService.delete(id);

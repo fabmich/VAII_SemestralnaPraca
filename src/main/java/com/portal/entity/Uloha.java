@@ -64,7 +64,7 @@ public class Uloha {
     private Integer cisloUlohy;
 
 
-    @OneToMany(mappedBy = "uloha", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "uloha", cascade = {CascadeType.ALL})
     @JsonIgnore
     private Set<ZPU> zpu;
 }

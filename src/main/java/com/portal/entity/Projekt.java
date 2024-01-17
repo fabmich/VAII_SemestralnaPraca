@@ -44,7 +44,7 @@ public class Projekt {
 //    @ManyToMany
 //    private Set<Zamestnanec> priradenyZamestnanci;
 
-    @OneToMany(mappedBy = "projekt", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "projekt", cascade = {CascadeType.ALL})
     @JsonManagedReference
     private Set<ZPU> zpu;
 }

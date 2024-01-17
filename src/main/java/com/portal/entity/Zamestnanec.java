@@ -75,7 +75,7 @@ public class  Zamestnanec {
     @JoinColumn(name = "file_id")
     private File fotkaZamestnanca;
 
-    @OneToMany(mappedBy = "zamestnanec", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "zamestnanec", cascade = {CascadeType.ALL})
     @JsonIgnore
     private Set<ZPU> zpu;
 }

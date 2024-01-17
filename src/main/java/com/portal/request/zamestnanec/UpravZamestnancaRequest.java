@@ -5,6 +5,7 @@ import com.portal.ciselniky.TypZamestnanca;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -15,7 +16,7 @@ public class UpravZamestnancaRequest {
     private String priezvisko;
     private Integer vek;
 
-    private OffsetDateTime kontraktDo;
+    private LocalDate kontraktDo;
 
     private TypZamestnanca typZamestnanca;
     private Pozicia pozicia;

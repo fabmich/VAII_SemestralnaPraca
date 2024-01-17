@@ -3,9 +3,11 @@ package com.portal.request.uloha;
 
 import com.portal.ciselniky.StavUlohy;
 import com.portal.ciselniky.Vrstva;
+import com.portal.entity.Projekt;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -20,7 +22,7 @@ public class CreateUlohaRequest {
     private UUID priradenyZamestnanec;
 
 
-    private OffsetDateTime deadline;
+    private LocalDateTime deadline;
 
     private UUID zadavatel;
 
@@ -28,6 +30,8 @@ public class CreateUlohaRequest {
     private Vrstva vrstva;
 
     private Double fixVersion;
+
+    private UUID projekt;
 
 
 }

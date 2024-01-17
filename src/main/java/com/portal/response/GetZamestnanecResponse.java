@@ -6,6 +6,7 @@ import com.portal.entity.Uloha;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -23,15 +24,14 @@ public class GetZamestnanecResponse {
 
     private String displayName;
 
-    private OffsetDateTime zamestnanyOd;
-
-    private OffsetDateTime kontraktDo;
+    private LocalDate zamestnanyOd;
 
     private TypZamestnanca typZamestnanca;
 
     private Pozicia pozicia;
 
-    private Uloha uloha;
+//    private Uloha uloha;
+
     private String telefonneCislo;
     private String email;
 

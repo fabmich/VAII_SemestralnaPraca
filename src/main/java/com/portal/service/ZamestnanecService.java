@@ -23,7 +23,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -52,12 +54,12 @@ public class ZamestnanecService {
                 .meno(request.getMeno())
                 .priezvisko(request.getPriezvisko())
                 .vek(request.getVek())
-                .kontraktDo(request.getKontraktDo())
                 .typZamestnanca(request.getTypZamestnanca())
                 .pozicia(request.getPozicia())
-                .zamestnanyOd(OffsetDateTime.now())
+                .zamestnanyOd(LocalDate.now())
                 .telefonneCislo(request.getTelefonneCislo())
                 .email(request.getEmail().toLowerCase())
+                .zpu(new HashSet<>())
                 .build()
         );
 
@@ -70,9 +72,6 @@ public class ZamestnanecService {
     }
 
     public void delete(@ExistsZamestnanec UUID id) {
-
-        var obrazok = zamestnanecDao.findById(id).get().getFotkaZamestnanca();
-        if (obrazok != null) fileDao.delete(fileDao.findById(obrazok.getId()).get());
 
         zamestnanecDao.deleteById(id);
     }
@@ -90,7 +89,6 @@ public class ZamestnanecService {
         zamestnanec.setMeno(request.getMeno());
         zamestnanec.setPriezvisko(request.getPriezvisko());
         zamestnanec.setVek(request.getVek());
-        zamestnanec.setKontraktDo(request.getKontraktDo());
         zamestnanec.setTypZamestnanca(request.getTypZamestnanca());
         zamestnanec.setPozicia(request.getPozicia());
 
@@ -99,7 +97,10 @@ public class ZamestnanecService {
 
 
     public Set<Uloha> getUlohy(@ExistsZamestnanec UUID id) {
-        return zamestnanecDao.findById(id).get().getPrideleneUlohy();
+//        return zamestnanecDao.findById(id).get().getPrideleneUlohy();
+        return null;
+        //todo fix
+        //zamestnanecDao.
 //                return ulohaDao.findAll().stream().filter(ul -> ul.getPriradenyZamestnanec().getId().equals(id)).collect(Collectors.toSet());
     }
 }

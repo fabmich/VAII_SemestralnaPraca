@@ -3,8 +3,10 @@ package com.portal.service;
 
 import com.portal.ciselniky.StavUlohy;
 import com.portal.dao.UlohaDao;
+import com.portal.dao.ZPUDao;
 import com.portal.dao.ZamestnanecDao;
 import com.portal.entity.Uloha;
+import com.portal.entity.ZPU;
 import com.portal.mapper.UlohaMapper;
 import com.portal.request.uloha.CreateUlohaRequest;
 import com.portal.request.uloha.UpravUlohuRequest;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -31,6 +34,9 @@ public class UlohaService {
 
     private final UlohaDao ulohaDao;
     private final ZamestnanecDao zamestnanecDao;
+    private final ZPUDao zpuDao;
+    private final ZPUService zpuService;
+
 
     private final UlohaMapper ulohaMapper;
 
@@ -44,21 +50,23 @@ public class UlohaService {
 
         var uloha =  ulohaDao.save(Uloha.builder()
                 .nazov(request.getNazov())
-                .datumVytvorenia(OffsetDateTime.now())
+                .datumVytvorenia(LocalDateTime.now())
                 .popis(request.getPopis())
                 .deadline(request.getDeadline())
                 .zadavatel(zamestnanecDao.getReferenceById(request.getZadavatel()))
                 .vrstva(request.getVrstva())
                 .fixVersion(request.getFixVersion())
                 .stavUlohy(StavUlohy.BACKLOG)
+                                .zpu(new HashSet<>())
 
-                .priradenyZamestnanec(zamestnanecDao.getReferenceById(request.getPriradenyZamestnanec()))
-
+//                .priradenyZamestnanec(zamestnanecDao.getReferenceById(request.getPriradenyZamestnanec()))
                 .build());
 
-        var zamestnanec = zamestnanecDao.findById(request.getPriradenyZamestnanec()).get();
-        zamestnanec.getPrideleneUlohy().add(uloha);
-        zamestnanecDao.save(zamestnanec);
+            var zpuId = zpuService.createZPU(uloha.getId(), request.getProjekt(), request.getPriradenyZamestnanec());
+            uloha.getZpu().add(zpuDao.getReferenceById(zpuId));
+//        var zamestnanec = zamestnanecDao.findById(request.getPriradenyZamestnanec()).get();
+//        zamestnanec.getPrideleneUlohy().add(uloha);
+//        zamestnanecDao.save(zamestnanec);
 
         return uloha.getId();
 
@@ -78,9 +86,9 @@ public class UlohaService {
         uloha.setNazov(request.getNazovZakaznika());
         uloha.setDeadline(request.getDeadline());
         uloha.setZadavatel(zamestnanecDao.getReferenceById(request.getSefProjektu()));
-        uloha.setPriradenyZamestnanec(zamestnanecDao.existsById(request.getPriradenyZamestnanec()) ?
-                zamestnanecDao.getReferenceById(request.getPriradenyZamestnanec()) : zamestnanecDao.getReferenceById(request.getSefProjektu()));
-
+//        uloha.setPriradenyZamestnanec(zamestnanecDao.existsById(request.getPriradenyZamestnanec()) ?
+//                zamestnanecDao.getReferenceById(request.getPriradenyZamestnanec()) : zamestnanecDao.getReferenceById(request.getSefProjektu()));
+//
 
         ulohaDao.save(uloha);
     }
@@ -92,32 +100,32 @@ public class UlohaService {
     }
 
     public void priradZamestnanca(@ExistsUloha UUID ulohaId,@ExistsZamestnanec UUID zamestnanecId) {
-        var uloha= ulohaDao.findById(ulohaId).get();
-
-        uloha.getPriradenyZamestnanec().setUloha(null);
-
-        uloha.setPriradenyZamestnanec(zamestnanecDao.getReferenceById(zamestnanecId));
-
-        var priradenyZamestnanec = zamestnanecDao.findById(zamestnanecId).get();
-        priradenyZamestnanec.setUloha(ulohaDao.getReferenceById(ulohaId));
-
-        ulohaDao.save(uloha);
-        zamestnanecDao.save(priradenyZamestnanec);
+//        var uloha= ulohaDao.findById(ulohaId).get();
+//
+//        uloha.getPriradenyZamestnanec().setUloha(null);
+//
+//        uloha.setPriradenyZamestnanec(zamestnanecDao.getReferenceById(zamestnanecId));
+//
+//        var priradenyZamestnanec = zamestnanecDao.findById(zamestnanecId).get();
+//        priradenyZamestnanec.setUloha(ulohaDao.getReferenceById(ulohaId));
+//
+//        ulohaDao.save(uloha);
+//        zamestnanecDao.save(priradenyZamestnanec);
 
     }
 
     public void odstranZamestnanca(@ExistsUloha UUID ulohaId) {
-        var uloha= ulohaDao.findById(ulohaId).get();
-
-        uloha.getPriradenyZamestnanec().setUloha(null);
-        //priradi default -  spravcu
-        uloha.setPriradenyZamestnanec(zamestnanecDao.getReferenceById(uloha.getZadavatel().getId()));
-
-        var sef = zamestnanecDao.findById(uloha.getZadavatel().getId()).get();
-        sef.setUloha(ulohaDao.getReferenceById(ulohaId));
-
-        ulohaDao.save(uloha);
-        zamestnanecDao.save(sef);
+//        var uloha= ulohaDao.findById(ulohaId).get();
+//
+//        uloha.getPriradenyZamestnanec().setUloha(null);
+//        //priradi default -  spravcu
+//        uloha.setPriradenyZamestnanec(zamestnanecDao.getReferenceById(uloha.getZadavatel().getId()));
+//
+//        var sef = zamestnanecDao.findById(uloha.getZadavatel().getId()).get();
+//        sef.setUloha(ulohaDao.getReferenceById(ulohaId));
+//
+//        ulohaDao.save(uloha);
+//        zamestnanecDao.save(sef);
     }
 
 

@@ -2,6 +2,7 @@ package com.portal.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.portal.ciselniky.Pozicia;
 import com.portal.ciselniky.TypZamestnanca;
@@ -11,7 +12,10 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,10 +50,10 @@ public class  Zamestnanec {
     private String email;
 
     @Column(nullable = false)
-    private OffsetDateTime zamestnanyOd;
+    private LocalDate zamestnanyOd;
 
-    @Column(nullable = false)
-    private OffsetDateTime kontraktDo;
+//    @Column(nullable = false)
+//    private OffsetDateTime kontraktDo;
 
     @Column(nullable = false)
     private TypZamestnanca typZamestnanca;
@@ -57,17 +61,21 @@ public class  Zamestnanec {
     @Column(nullable = false)
     private Pozicia pozicia;
 
-    //TODO zmenit na Projekt
-    @ManyToOne
-    @JoinColumn(name = "uloha_id")
-    @JsonBackReference
-    private Uloha uloha;
+//    //TODO zmenit na Projekt
+//    @ManyToMany
+//    @JoinColumn(name = "projekt_id")
+//    @JsonBackReference
+//    private Set<Projekt> projekt;
 
-    @OneToMany(mappedBy="priradenyZamestnanec")
-    @JsonBackReference
-    private Set<Uloha> prideleneUlohy;
+//    @OneToMany(mappedBy="priradenyZamestnanec")
+//    @JsonBackReference
+//    private Set<Uloha> prideleneUlohy;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "file_id")
     private File fotkaZamestnanca;
+
+    @OneToMany(mappedBy = "zamestnanec", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
+    private Set<ZPU> zpu;
 }

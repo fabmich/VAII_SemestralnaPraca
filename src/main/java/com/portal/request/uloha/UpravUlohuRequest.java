@@ -4,6 +4,7 @@ import com.portal.entity.Zamestnanec;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -15,7 +16,7 @@ public class UpravUlohuRequest {
     private String nazov;
     private String popis;
     private String nazovZakaznika;
-    private OffsetDateTime deadline;
+    private LocalDateTime deadline;
 
     private UUID priradenyZamestnanec;
 

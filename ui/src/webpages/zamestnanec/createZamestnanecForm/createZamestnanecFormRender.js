@@ -18,7 +18,6 @@ function CreateZamestnanecFormRender() {
         poznamka: "",
 
         vek: "",
-        kontraktDo: "1980-04-09T10:15:30+07:00",
         typZamestnanca: "TPP",
         pozicia: "PROGRAMATOR",
         fotkaZamestnanca: null

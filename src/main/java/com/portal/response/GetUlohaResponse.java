@@ -5,6 +5,7 @@ import com.portal.entity.Zamestnanec;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -15,10 +16,10 @@ public class GetUlohaResponse {
     private UUID id;
 
     private String nazov;
-    private OffsetDateTime datumVytvorenia;
+    private LocalDateTime datumVytvorenia;
     private String popis;
 
-    private OffsetDateTime deadline;
+    private LocalDateTime deadline;
 
     private Integer fixVersion;
     private Vrstva vrstva;

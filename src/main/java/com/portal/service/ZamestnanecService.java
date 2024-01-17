@@ -3,6 +3,7 @@ package com.portal.service;
 
 import com.portal.dao.FileDao;
 import com.portal.dao.UlohaDao;
+import com.portal.dao.ZPUDao;
 import com.portal.dao.ZamestnanecDao;
 import com.portal.entity.Uloha;
 import com.portal.entity.Zamestnanec;
@@ -41,6 +42,7 @@ public class ZamestnanecService {
     private final EntityManager entityManager;
     private final UlohaDao ulohaDao;
     private final FileDao fileDao;
+    private final ZPUDao zpuDao;
 
     public List<Zamestnanec> findAll() {
 
@@ -97,10 +99,10 @@ public class ZamestnanecService {
 
 
     public Set<Uloha> getUlohy(@ExistsZamestnanec UUID id) {
-//        return zamestnanecDao.findById(id).get().getPrideleneUlohy();
-        return null;
-        //todo fix
-        //zamestnanecDao.
-//                return ulohaDao.findAll().stream().filter(ul -> ul.getPriradenyZamestnanec().getId().equals(id)).collect(Collectors.toSet());
+        var ulohaSet = new HashSet<Uloha>();
+        
+        zpuDao.findByZamestnanecId(id).forEach(z ->ulohaSet.add(z.getUloha()));
+
+        return ulohaSet;
     }
 }

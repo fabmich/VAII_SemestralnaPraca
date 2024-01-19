@@ -2,6 +2,7 @@ package com.portal.service;
 
 import com.portal.dao.ProjektDao;
 import com.portal.entity.Projekt;
+import com.portal.request.projekt.ProjektSaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,12 @@ public class ProjektService {
     }
 
 
-    public UUID createProject(String nazov) {
+    public UUID createProject(ProjektSaveRequest request) {
 
-        var projekt = Projekt.builder().nazov(nazov).datumVytvorenia(LocalDateTime.now())
+        var projekt = Projekt.builder().nazov(request.getNazov()).datumVytvorenia(LocalDateTime.now())
+                .popis(request.getPopis())
+                .zakaznik(request.getZakaznik())
+                .prefix(request.getPrefix())
                 .zpu(new HashSet<>())
                 .build();
 

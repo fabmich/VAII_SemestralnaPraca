@@ -8,6 +8,7 @@ import com.portal.request.FindAllZamestnanecRequest;
 import com.portal.request.zamestnanec.CreateZamestnanecRequest;
 import com.portal.request.zamestnanec.UpravZamestnancaRequest;
 import com.portal.response.GetZamestnanecResponse;
+import com.portal.response.ZamestnanecFindAllResponse;
 import com.portal.service.ZamestnanecService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class ZamestnanecController {
 
     @PostMapping("/find-all")
     @ResponseStatus(HttpStatus.OK)
-    public List<Zamestnanec> findAll() {
+    public List<ZamestnanecFindAllResponse> findAll() {
         return zamestnanecService.findAll();
     }//@RequestBody FindAllZamestnanecRequest request
 
@@ -78,6 +79,7 @@ public class ZamestnanecController {
     }
 
     @GetMapping("/{id}/getUlohy")
+    @ResponseStatus(HttpStatus.OK)
     public Set<Uloha> getUlohyZamestnanca(@PathVariable UUID id) {
 
         return zamestnanecService.getUlohy(id);

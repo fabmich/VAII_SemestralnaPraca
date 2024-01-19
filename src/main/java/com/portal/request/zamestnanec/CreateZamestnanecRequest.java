@@ -36,7 +36,7 @@ public class CreateZamestnanecRequest {
     @Email
     private String email;
 
-    private LocalDate kontraktDo;
+//    private LocalDate kontraktDo;
 
     private TypZamestnanca typZamestnanca;
 

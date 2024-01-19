@@ -2,6 +2,7 @@ package com.portal.controller;
 
 
 import com.portal.entity.Projekt;
+import com.portal.request.projekt.ProjektSaveRequest;
 import com.portal.service.ProjektService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,11 @@ public class ProjektController {
         return projektService.findAll();
     }
 
-    @PostMapping("/save/{nazov}")
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public UUID createProjekt(@PathVariable String nazov) {
+    public UUID createProjekt(@RequestBody ProjektSaveRequest request) {
 
-        return projektService.createProject(nazov);
+        return projektService.createProject(request);
     }
 
     @GetMapping("/{id}")

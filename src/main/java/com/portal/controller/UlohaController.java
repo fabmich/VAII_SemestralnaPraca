@@ -3,15 +3,19 @@ package com.portal.controller;
 
 import com.portal.entity.Uloha;
 import com.portal.request.uloha.CreateUlohaRequest;
+import com.portal.request.uloha.UlohaFindAllRequest;
 import com.portal.request.uloha.UpravUlohuRequest;
-import com.portal.response.GetUlohaResponse;
+import com.portal.response.uloha.GetUlohaResponse;
+import com.portal.response.uloha.UlohaFindAllResponse;
 import com.portal.service.UlohaService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -23,8 +27,8 @@ public class UlohaController {
     private final UlohaService ulohaService;
 
     @PostMapping("/find-all")
-    public List<Uloha> findAll() {
-        return ulohaService.findAll();
+    public Page<UlohaFindAllResponse> findAll(@RequestBody UlohaFindAllRequest request) {
+        return ulohaService.findAll(request);
     }
 
     @PostMapping("/save")

@@ -12,6 +12,7 @@ import com.portal.request.FindAllZamestnanecRequest;
 import com.portal.request.zamestnanec.CreateZamestnanecRequest;
 import com.portal.request.zamestnanec.UpravZamestnancaRequest;
 import com.portal.response.GetZamestnanecResponse;
+import com.portal.response.ZamestnanecFindAllResponse;
 import com.portal.validator.zamestnanec.CreateZamestnanecControl;
 import com.portal.validator.zamestnanec.ExistsZamestnanec;
 import jakarta.persistence.EntityManager;
@@ -44,9 +45,9 @@ public class ZamestnanecService {
     private final FileDao fileDao;
     private final ZPUDao zpuDao;
 
-    public List<Zamestnanec> findAll() {
+    public List<ZamestnanecFindAllResponse> findAll() {
 
-        return zamestnanecDao.findAll();
+        return zamestnanecDao.findAll().stream().map(zamestnanecMapper::toZamestnanecFindAllResponse).collect(Collectors.toList());
 
     }
 

@@ -1,6 +1,7 @@
 package com.portal.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,7 +19,6 @@ import java.util.UUID;
 @Table(name = "projekt")
 @Getter
 @Setter
-@Data
 @RequiredArgsConstructor
 @SuperBuilder
 public class Projekt {
@@ -31,7 +31,7 @@ public class Projekt {
     @Column(nullable = false)
     private String nazov;
 
-
+    private String prefix;
 
     @Column(nullable = false)
     private LocalDateTime datumVytvorenia;
@@ -41,10 +41,8 @@ public class Projekt {
 
     private String zakaznik;
 
-//    @ManyToMany
-//    private Set<Zamestnanec> priradenyZamestnanci;
 
     @OneToMany(mappedBy = "projekt", cascade = {CascadeType.ALL})
-    @JsonManagedReference
+    @JsonIgnore
     private Set<ZPU> zpu;
 }

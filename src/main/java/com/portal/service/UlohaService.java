@@ -2,15 +2,18 @@ package com.portal.service;
 
 
 import com.portal.ciselniky.StavUlohy;
+import com.portal.dao.ProjektDao;
 import com.portal.dao.UlohaDao;
 import com.portal.dao.ZPUDao;
 import com.portal.dao.ZamestnanecDao;
 import com.portal.entity.Uloha;
-import com.portal.entity.ZPU;
+import com.portal.entity.UlohaCisloCounter;
 import com.portal.mapper.UlohaMapper;
 import com.portal.request.uloha.CreateUlohaRequest;
+import com.portal.request.uloha.UlohaFindAllRequest;
 import com.portal.request.uloha.UpravUlohuRequest;
-import com.portal.response.GetUlohaResponse;
+import com.portal.response.uloha.GetUlohaResponse;
+import com.portal.response.uloha.UlohaFindAllResponse;
 import com.portal.validator.uloha.ExistsUloha;
 import com.portal.validator.zamestnanec.ExistsZamestnanec;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +24,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,14 +39,29 @@ public class UlohaService {
     private final ZamestnanecDao zamestnanecDao;
     private final ZPUDao zpuDao;
     private final ZPUService zpuService;
+    private final ProjektDao projektDao;
 
 
     private final UlohaMapper ulohaMapper;
+    private final UlohaCisloCounterService ulohaCisloCounterService;
+
+    public Page<UlohaFindAllResponse> findAll(UlohaFindAllRequest request) {
+        var pageNumber = request.getPageNumber();
+        var pageSize = request.getPageSize();
+
+        if (pageNumber >= ulohaDao.count()) {
+            pageNumber = (int) ulohaDao.count() - 1;
+        }
+
+        if (pageSize >= ulohaDao.count()) {
+            pageSize = (int) ulohaDao.count() - 1;
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+
+        return ulohaDao.findAll(pageable).map(ulohaMapper::toUlohaFindAllResponse);
 
 
-    public List<Uloha> findAll() {
-//        Pageable pageable = PageRequest.of(0,2);
-        return ulohaDao.findAll();
 
     }
     public UUID save(CreateUlohaRequest request) {
@@ -56,6 +74,8 @@ public class UlohaService {
                 .zadavatel(zamestnanecDao.getReferenceById(request.getZadavatel()))
                 .vrstva(request.getVrstva())
                 .fixVersion(request.getFixVersion())
+                        .cisloUlohy(ulohaCisloCounterService.getAndIncrement())
+                        .prefix(projektDao.findById(request.getProjekt()).get().getPrefix())
                 .stavUlohy(StavUlohy.BACKLOG)
                                 .zpu(new HashSet<>())
 

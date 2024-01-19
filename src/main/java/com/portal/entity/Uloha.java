@@ -39,10 +39,6 @@ public class Uloha {
 
     private String popis;
 
-//    @ManyToOne
-////    @JoinColumn(name = "zamestnanec_id")
-////    @JsonBackReference
-//    private Zamestnanec priradenyZamestnanec;
 
     @Column(nullable = false)
     private LocalDateTime deadline;
@@ -61,8 +57,9 @@ public class Uloha {
 
     private StavUlohy stavUlohy;
 
-    private Integer cisloUlohy;
+    private Long cisloUlohy;
 
+    private String prefix;
 
     @OneToMany(mappedBy = "uloha", cascade = {CascadeType.ALL})
     @JsonIgnore

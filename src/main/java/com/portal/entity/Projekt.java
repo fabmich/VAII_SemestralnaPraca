@@ -3,6 +3,7 @@ package com.portal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.portal.ciselniky.Pozicia;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -45,4 +46,5 @@ public class Projekt {
     @OneToMany(mappedBy = "projekt", cascade = {CascadeType.ALL})
     @JsonIgnore
     private Set<ZPU> zpu;
+
 }

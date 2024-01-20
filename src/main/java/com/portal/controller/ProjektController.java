@@ -3,12 +3,15 @@ package com.portal.controller;
 
 import com.portal.entity.Projekt;
 import com.portal.request.projekt.ProjektSaveRequest;
+import com.portal.request.projekt.ProjektUpdateRequest;
+import com.portal.response.projekt.ProjektFindAllResponse;
 import com.portal.service.ProjektService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -21,7 +24,7 @@ public class ProjektController {
 
     @PostMapping("/find-all")
     @ResponseStatus(HttpStatus.OK)
-    public List<Projekt> findAll() {
+    public Set<ProjektFindAllResponse> findAll() {
         return projektService.findAll();
     }
 
@@ -42,6 +45,13 @@ public class ProjektController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable UUID id) {
         projektService.deleteProjekt(id);
+    }
+
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable UUID id, @RequestBody ProjektUpdateRequest request) {
+        projektService.update(id, request);
     }
 
 }

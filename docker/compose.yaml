@@ -17,20 +17,25 @@ services:
       - '5432:5432'
     mem_limit: 4g
 
-#  keycloak:
-#    container_name: keycloak
-#    image: 'jboss/keycloak:latest'
-#    environment:
+  keycloak:
+    container_name: keycloak
+    image: 'jboss/keycloak:latest'
+    environment:
+          - 'DB_VENDOR=POSTGRES'
+          - 'DB_ADDR=postgres'
+          - 'DB_DATABASE=keycloak'
+          - 'DB_USER=postgres'
+          - 'DB_PASSWORD=postgres'
 #      - 'DB_VENDOR=POSTGRES'
 #      - 'DB_ADDR=postgres'
 #      - 'DB_DATABASE=keycloak'
 #      - 'DB_USER=postgres'
 #      - 'DB_PASSWORD=postgres'
 #      - 'KEYCLOAK_IMPORT=docker/realm-export-3.json'
-#    ports:
-#      - '8090:8080'
-#    depends_on:
-#      - postgres
+    ports:
+      - '8090:8080'
+    depends_on:
+      - postgres
 #    volumes:
 #        - docker/realm-export-2.json
 #        - ./keycloak-init.sh:/docker/realm-export-2.json

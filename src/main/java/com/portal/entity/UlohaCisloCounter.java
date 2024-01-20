@@ -22,5 +22,7 @@ public class UlohaCisloCounter {
 
     private Long nextValue;
 
+    private String prefix;
+
 
 }

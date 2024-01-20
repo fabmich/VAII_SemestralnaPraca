@@ -12,12 +12,12 @@ public class UlohaCisloCounterService {
 
     private final UlohaCisloCounterDAO ulohaCisloCounterDAO;
 
-    public long getAndIncrement() {
-        var currentTopId = ulohaCisloCounterDAO.findTopByOrderByIdDesc().getId();
+    public long getAndIncrement(String prefix) {
+        var currentTop = ulohaCisloCounterDAO.findTopByPrefixOrderByNextValueDesc(prefix).getNextValue();
 
-        ulohaCisloCounterDAO.save(UlohaCisloCounter.builder().build());
+        ulohaCisloCounterDAO.save(UlohaCisloCounter.builder().prefix(prefix).nextValue(currentTop + 1).build());
 
-        return currentTopId +  1;
+        return currentTop +  1;
     }
 
 }

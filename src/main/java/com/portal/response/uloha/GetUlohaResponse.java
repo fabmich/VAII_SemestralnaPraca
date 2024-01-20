@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -19,7 +20,7 @@ public class GetUlohaResponse {
     private LocalDateTime datumVytvorenia;
     private String popis;
 
-    private LocalDateTime deadline;
+    private Date deadline;
 
     private Integer fixVersion;
     private Vrstva vrstva;
@@ -27,5 +28,7 @@ public class GetUlohaResponse {
 
     private UUID zadavatelId;
     private UUID priradenyZamestnanecId;
+    private String menoPriezviskoPriradenehoZamestnanca;
     private String stavUlohy;
+    private String cisloUlohy;
 }

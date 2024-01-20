@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -41,7 +42,7 @@ public class Uloha {
 
 
     @Column(nullable = false)
-    private LocalDateTime deadline;
+    private Date deadline;
 
     @Column
     private Vrstva vrstva;

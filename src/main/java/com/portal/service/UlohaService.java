@@ -54,7 +54,7 @@ public class UlohaService {
         }
 
         if (pageSize >= ulohaDao.count()) {
-            pageSize = (int) ulohaDao.count() - 1;
+            pageSize = (int) ulohaDao.count() ;
         }
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
@@ -66,6 +66,8 @@ public class UlohaService {
     }
     public UUID save(CreateUlohaRequest request) {
 
+        var projektPrefix = projektDao.findById(request.getProjekt()).get().getPrefix();
+
         var uloha =  ulohaDao.save(Uloha.builder()
                 .nazov(request.getNazov())
                 .datumVytvorenia(LocalDateTime.now())
@@ -74,8 +76,8 @@ public class UlohaService {
                 .zadavatel(zamestnanecDao.getReferenceById(request.getZadavatel()))
                 .vrstva(request.getVrstva())
                 .fixVersion(request.getFixVersion())
-                        .cisloUlohy(ulohaCisloCounterService.getAndIncrement())
-                        .prefix(projektDao.findById(request.getProjekt()).get().getPrefix())
+                        .cisloUlohy(ulohaCisloCounterService.getAndIncrement(projektPrefix))
+                        .prefix(projektPrefix)
                 .stavUlohy(StavUlohy.BACKLOG)
                                 .zpu(new HashSet<>())
 
@@ -116,7 +118,20 @@ public class UlohaService {
     public GetUlohaResponse getZamestnanec(@ExistsUloha UUID id) {
         var uloha = ulohaDao.findById(id).get();
 
-        return ulohaMapper.toGetUlohaResponse(uloha);
+
+
+        var response =  ulohaMapper.toGetUlohaResponse(uloha);
+        var zpu = zpuDao.findByUlohaId(uloha.getId());
+
+        if (zpu != null) {
+
+            response.setMenoPriezviskoPriradenehoZamestnanca(zpu.getZamestnanec().getMeno() + " " + zpu.getZamestnanec().getPriezvisko());
+            response.setPriradenyZamestnanecId(zpu.getZamestnanec().getId());
+        }
+        else {
+            response.setMenoPriezviskoPriradenehoZamestnanca("Task nemá priradeného zamestnanca");
+        }
+        return response;
     }
 
     public void priradZamestnanca(@ExistsUloha UUID ulohaId,@ExistsZamestnanec UUID zamestnanecId) {

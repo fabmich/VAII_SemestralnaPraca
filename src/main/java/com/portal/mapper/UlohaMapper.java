@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 public interface UlohaMapper {
 
 
-//    @Mapping(target = "priradenyZamestnanecId", source = "uloha.priradenyZamestnanec.id")
     @Mapping(target = "zadavatelId", source = "uloha.zadavatel.id")
     @Mapping(target = "stavUlohy", source = "uloha.stavUlohy")
     GetUlohaResponse toGetUlohaResponse(Uloha uloha);

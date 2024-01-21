@@ -1,23 +1,17 @@
 package com.portal.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.portal.ciselniky.StavUlohy;
 import com.portal.ciselniky.Vrstva;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity

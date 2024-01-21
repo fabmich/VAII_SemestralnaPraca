@@ -1,6 +1,5 @@
 package com.portal.response;
 
-import com.portal.entity.Uloha;
 import lombok.Getter;
 import lombok.Setter;
 

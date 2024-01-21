@@ -4,6 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
+/**
+ *
+ * NENI CAST SP VAII, to som len mal ako proof of concept
+ */
 
 public class CustomJavaMailSenderImpl extends JavaMailSenderImpl implements CustomJavaMailSender {
 

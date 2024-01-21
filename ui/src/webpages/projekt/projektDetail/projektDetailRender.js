@@ -5,11 +5,10 @@ import "./projektDetailStylesheet.css"
 import {useKeycloak} from "@react-keycloak/web";
 
 function ProjektDetailRender() {
-    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const projektServices = new ProjektServices();
     const {id} = useParams();
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
 
     const [projektDetail, setProjektDetail] = useState({
         nazov: "",

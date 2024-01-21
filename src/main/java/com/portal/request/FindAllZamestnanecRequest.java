@@ -1,10 +1,8 @@
 package com.portal.request;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.portal.ciselniky.Pozicia;
 import com.portal.ciselniky.TypZamestnanca;
 import com.portal.entity.Uloha;
-import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
 import java.util.Set;

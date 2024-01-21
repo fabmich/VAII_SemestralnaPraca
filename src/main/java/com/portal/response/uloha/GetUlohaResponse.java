@@ -2,12 +2,10 @@ package com.portal.response.uloha;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.portal.ciselniky.Vrstva;
-import com.portal.entity.Zamestnanec;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.UUID;
 

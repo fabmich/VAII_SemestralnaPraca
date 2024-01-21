@@ -9,7 +9,7 @@ function UlohaListRender() {
     const [listOfUlohy, setListOfUlohy] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
     const ulohaServices = new UlohaServices();
     const [projekty, setProjekty] = useState([]);
 

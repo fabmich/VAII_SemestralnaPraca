@@ -10,7 +10,7 @@ function ProjektListRender() {
     const [showModal, setShowModal] = useState(false);
     const projektServices = new ProjektServices();
     const [projektIdToDelete, setProjektIdToDelete] = useState(null);
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
 
 
     const [loading, setLoading] = useState(true);

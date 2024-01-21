@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+/**
+ *
+ * NENI CAST SP VAII, to som len mal ako proof of concept
+ */
 
 @Service
 @RequiredArgsConstructor

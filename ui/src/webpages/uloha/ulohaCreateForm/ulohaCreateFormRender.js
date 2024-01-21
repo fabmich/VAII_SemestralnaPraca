@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import UlohaServices from "../../../services/ulohaServices";
 import ZamestnanecServices from "../../../services/zamestnanecServices";
 import './ulohaCreateFormStylesheet.css'
@@ -9,7 +9,7 @@ function UlohaCreateFormRender() {
     const ulohaServices = new UlohaServices();
     const zamestnanecServices = new ZamestnanecServices();
     const navigate = useNavigate();
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
 
     const [formStateUloha, setFormStateUloha] = useState({
         nazov: "",

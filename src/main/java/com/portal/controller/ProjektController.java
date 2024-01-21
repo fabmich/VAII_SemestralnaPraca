@@ -10,6 +10,7 @@ import com.portal.service.ProjektService;
 import com.portal.validator.CheckRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/projekt")
 @RequiredArgsConstructor
+@Validated
 public class ProjektController {
 
     private final ProjektService projektService;

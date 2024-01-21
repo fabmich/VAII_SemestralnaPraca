@@ -2,10 +2,13 @@ package com.portal.controller;
 
 
 import com.portal.entity.ZPU;
+import com.portal.request.uloha.UlohaFindAllRequest;
 import com.portal.response.ZPUResponse;
+import com.portal.response.uloha.UlohaFindAllResponse;
 import com.portal.service.ZPUService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,13 @@ public class ZPUController {
     public List<ZPUResponse> findAll() {
         return zpuService.findAll();
     }
+
+    @PostMapping("/find-all-ulohy")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<UlohaFindAllResponse> findAllUlohyFromZPU(@RequestBody UlohaFindAllRequest request) {
+        return zpuService.findAllUlohyFromZPU( request);
+    }
+
 
     @PostMapping("/find-all-normal")
     @ResponseStatus(HttpStatus.OK)

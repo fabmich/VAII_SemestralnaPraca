@@ -1,34 +1,24 @@
 package com.portal.controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jwt.JWTParser;
 import com.portal.ciselniky.Role;
 import com.portal.dao.ZamestnanecDao;
 import com.portal.entity.Uloha;
 import com.portal.entity.Zamestnanec;
-import com.portal.request.FindAllZamestnanecRequest;
 import com.portal.request.zamestnanec.CreateZamestnanecRequest;
 import com.portal.request.zamestnanec.UpravZamestnancaRequest;
-import com.portal.response.GetZamestnanecResponse;
-import com.portal.response.ZamestnanecFindAllResponse;
+import com.portal.response.zamestnanec.GetZamestnanecResponse;
+import com.portal.response.zamestnanec.ZamestnanecFindAllResponse;
+import com.portal.response.zamestnanec.ZamestnanecFindAllSimpleResponse;
 import com.portal.service.ZamestnanecService;
-import com.portal.utils.JWTParserUtil;
 import com.portal.validator.CheckRole;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.fasterxml.jackson.core.type.TypeReference;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.*;
 
 
@@ -96,5 +86,11 @@ public class ZamestnanecController {
     public Set<Uloha> getUlohyZamestnanca(@PathVariable UUID id) {
 
         return zamestnanecService.getUlohy(id);
+    }
+
+    @PostMapping("/find-all-simple")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ZamestnanecFindAllSimpleResponse> findAllSimple() {
+        return zamestnanecService.findAllSimple();
     }
 }

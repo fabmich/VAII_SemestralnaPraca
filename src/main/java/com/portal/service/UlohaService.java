@@ -6,7 +6,10 @@ import com.portal.dao.ProjektDao;
 import com.portal.dao.UlohaDao;
 import com.portal.dao.ZPUDao;
 import com.portal.dao.ZamestnanecDao;
+import com.portal.entity.QUloha;
 import com.portal.entity.Uloha;
+import com.portal.entity.Uloha_;
+import com.portal.entity.ZPU_;
 import com.portal.mapper.UlohaMapper;
 import com.portal.request.uloha.CreateUlohaRequest;
 import com.portal.request.uloha.UlohaFindAllRequest;
@@ -19,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -55,7 +59,12 @@ public class UlohaService {
 
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
 
-
+//        Specification<Uloha> nameLike =
+//                (root, query, criteriaBuilder) ->
+//                        criteriaBuilder.like(root.get(ZPU_).equals()
+//
+//
+////        ulohaDao.findAll(, pageable);
         return ulohaDao.findAll(pageable).map(ulohaMapper::toUlohaFindAllResponse);
 
     }
@@ -125,6 +134,8 @@ public class UlohaService {
 
             response.setMenoPriezviskoPriradenehoZamestnanca(zpu.getZamestnanec().getMeno() + " " + zpu.getZamestnanec().getPriezvisko());
             response.setPriradenyZamestnanecId(zpu.getZamestnanec().getId());
+
+            response.setMenoPriezviskoZadavatela(uloha.getZadavatel().getMeno() + " " + uloha.getZadavatel().getPriezvisko());
         }
         else {
             response.setMenoPriezviskoPriradenehoZamestnanca("Task nemá priradeného zamestnanca");

@@ -17,7 +17,7 @@ public interface UlohaMapper {
 
 //    @Mapping(target = "priradenyZamestnanecId", source = "uloha.priradenyZamestnanec.id")
     @Mapping(target = "zadavatelId", source = "uloha.zadavatel.id")
-    @Mapping(target = "stavUlohy", source = "uloha.stavUlohy.nazov")
+    @Mapping(target = "stavUlohy", source = "uloha.stavUlohy")
     GetUlohaResponse toGetUlohaResponse(Uloha uloha);
 
     UlohaFindAllResponse toUlohaFindAllResponse(Uloha uloha);

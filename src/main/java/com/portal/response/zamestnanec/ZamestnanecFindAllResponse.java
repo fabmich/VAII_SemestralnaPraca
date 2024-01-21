@@ -1,4 +1,4 @@
-package com.portal.response;
+package com.portal.response.zamestnanec;
 
 
 import com.portal.ciselniky.Pozicia;

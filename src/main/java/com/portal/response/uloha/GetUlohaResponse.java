@@ -31,6 +31,8 @@ public class GetUlohaResponse {
 
 
     private UUID zadavatelId;
+    private String menoPriezviskoZadavatela;
+
     private UUID priradenyZamestnanecId;
     private String menoPriezviskoPriradenehoZamestnanca;
     private String stavUlohy;

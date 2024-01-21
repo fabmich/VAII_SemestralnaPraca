@@ -5,16 +5,20 @@ import com.portal.dao.UlohaDao;
 import com.portal.dao.ZPUDao;
 import com.portal.dao.ZamestnanecDao;
 import com.portal.entity.ZPU;
+import com.portal.entity.ZPU_;
+import com.portal.mapper.UlohaMapper;
 import com.portal.mapper.ZPUMapper;
+import com.portal.request.uloha.UlohaFindAllRequest;
 import com.portal.response.ZPUResponse;
+import com.portal.response.uloha.UlohaFindAllResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -28,7 +32,7 @@ public class ZPUService {
     private final UlohaDao ulohaDao;
     private final ZamestnanecDao zamestnanecDao;
     private final ProjektDao projektDao;
-
+    private final UlohaMapper ulohaMapper;
 
     private final ZPUMapper zpuMapper;
 
@@ -75,5 +79,33 @@ public class ZPUService {
     }
 
 
+    public Page<UlohaFindAllResponse> findAllUlohyFromZPU(UlohaFindAllRequest request) {
+        var pageNumber = request.getPageNumber();
+        var pageSize = request.getPageSize();
 
+        if (pageNumber >= ulohaDao.count()) {
+            pageNumber = (int) ulohaDao.count() - 1;
+        }
+
+        if (pageSize >= ulohaDao.count()) {
+            pageSize = (int) ulohaDao.count() ;
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+
+
+
+        Specification<ZPU>  projektLike  = null;
+        if (request.getProjektId() != null) {
+            var projekt = projektDao.findById(request.getProjektId()).get();
+
+            projektLike =
+                    (root, query, criteriaBuilder) ->
+                            criteriaBuilder.equal(root.get(ZPU_.PROJEKT), projekt);
+
+        }
+
+        return zpuDao.findAll(projektLike, pageable).map(zpu -> ulohaMapper.toUlohaFindAllResponse(zpu.getUloha()));
+
+    }
 }

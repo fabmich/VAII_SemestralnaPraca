@@ -2,5 +2,10 @@ package com.portal.ciselniky;
 
 public enum Vrstva {
     BE,
-    FE
+    FE,
+    GUI,
+    BUG,
+    DB,
+    FIX,
+    HOTFIX
 }

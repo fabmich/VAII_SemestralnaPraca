@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional
 @RequestMapping("/uloha")
+@Validated
 public class UlohaController {
 
     private final UlohaService ulohaService;

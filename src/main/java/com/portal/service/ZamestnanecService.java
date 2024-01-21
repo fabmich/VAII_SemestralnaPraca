@@ -8,27 +8,19 @@ import com.portal.dao.ZamestnanecDao;
 import com.portal.entity.Uloha;
 import com.portal.entity.Zamestnanec;
 import com.portal.mapper.ZamestnanecMapper;
-import com.portal.request.FindAllZamestnanecRequest;
 import com.portal.request.zamestnanec.CreateZamestnanecRequest;
 import com.portal.request.zamestnanec.UpravZamestnancaRequest;
-import com.portal.response.GetZamestnanecResponse;
-import com.portal.response.ZamestnanecFindAllResponse;
-import com.portal.utils.RoleCheckerUtil;
+import com.portal.response.zamestnanec.GetZamestnanecResponse;
+import com.portal.response.zamestnanec.ZamestnanecFindAllResponse;
+import com.portal.response.zamestnanec.ZamestnanecFindAllSimpleResponse;
 import com.portal.validator.zamestnanec.CreateZamestnanecControl;
 import com.portal.validator.zamestnanec.ExistsZamestnanec;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -108,9 +100,13 @@ public class ZamestnanecService {
 
     public Set<Uloha> getUlohy(@ExistsZamestnanec UUID id) {
         var ulohaSet = new HashSet<Uloha>();
-        
+
         zpuDao.findByZamestnanecId(id).forEach(z ->ulohaSet.add(z.getUloha()));
 
         return ulohaSet;
+    }
+
+    public List<ZamestnanecFindAllSimpleResponse> findAllSimple() {
+        return zamestnanecDao.findAll().stream().map(zamestnanecMapper::toZamestnanecFindAllSimpleResponse).collect(Collectors.toList());
     }
 }

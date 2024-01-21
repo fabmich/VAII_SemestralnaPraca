@@ -11,5 +11,7 @@ public class UlohaFindAllRequest {
     private int pageNumber;
     private int pageSize;
 
+    private UUID projektId;
+
 
 }

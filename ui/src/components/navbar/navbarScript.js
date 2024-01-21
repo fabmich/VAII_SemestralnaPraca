@@ -1,4 +1,3 @@
-
 let isMobileMenuOpen = false;
 
 export function closeMobileMenu() {
@@ -8,8 +7,9 @@ export function closeMobileMenu() {
     mobileMenu.style.display = 'none';
     navLinks.classList.remove('active');
 }
+
 export function toggleMobileNavbar(event) {
-    event.stopPropagation(); // Stop event propagation
+    event.stopPropagation();
 
     const mobileMenu = document.querySelector('.mobile-menu');
     const navLinks = document.querySelector('.nav-links');

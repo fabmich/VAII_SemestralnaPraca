@@ -1,11 +1,16 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./navBarStyleSheet.css";
 import {closeMobileMenu, openMobileNavbar, toggleMobileNavbar} from './navbarScript.js'
-
+import {useKeycloak} from "@react-keycloak/web";
 import navBarLogoImage from '../../../../ui/src/pictures/navBarLogo.png';
 import {Link} from "react-router-dom";
+import {KeycloakLogoutOptions} from "keycloak-js";
+
 
 function NavBar() {
+    const {keycloak, initialized} = useKeycloak();
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
     useEffect(() => {
         const mobileMenu = document.getElementById("mobile-menu");
         if (mobileMenu) {
@@ -19,6 +24,11 @@ function NavBar() {
         };
     }, []);
 
+    const handleLogoutClick = () => {
+        keycloak.logout("/")
+    };
+
+
     return (
         <nav className="navbar">
             <div className="logo">
@@ -30,12 +40,24 @@ function NavBar() {
                     <li><Link to="/home">Domov</Link></li>
                     <li><Link to="/zamestnanci">Zamestnanci</Link></li>
                     <li><Link to="/ulohy">Úlohy</Link></li>
-                    <li><Link to="/projects">Projekty</Link></li>
-                    <li><Link to="/contacts">Kontakty</Link></li>
+                    <li><Link to="/projekty">Projekty</Link></li>
+                    <li><Link to="/kontakty">Kontakty</Link></li>
+                    {/*<li> {isMobile ? ("Odhlásiť sa") : ("")  } </li>*/}
                 </ul>
             </div>
             <div className="website-name website-name-extended">
-                Workflow Manager
+                {/*Workflow Manager*/}
+                {keycloak.authenticated ?
+                    <span className="logout-link" onClick={() => keycloak.logout()}>
+                    Odhlásiť sa  ({(keycloak.tokenParsed.preferred_username)})
+                </span>
+                    :
+                    <span className="logout-link" onClick={() => keycloak.login()}>
+                    Prihlásiť sa
+                </span>
+                }
+
+
             </div>
             <div id="mobile-menu" className="mobile-menu">
                 <div className="hamburger-menu">

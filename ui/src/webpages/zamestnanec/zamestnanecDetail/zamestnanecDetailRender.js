@@ -10,7 +10,7 @@ function ZamestnanecDetailRender() {
     const [ListOfUlohy, setListOfUlohy] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
     const {id} = useParams();
 
     const [zamestnanecDetails, setZamestnanecDetails] = useState({

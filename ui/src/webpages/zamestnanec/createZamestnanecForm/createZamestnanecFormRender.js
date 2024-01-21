@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Navigate, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import './createZamestnanecFormStyleSheet.css'
 import '../../../components/errorMessage/errorMessageStylesheet.css'
 import ZamestnanecServices from '../../../services/zamestnanecServices'
@@ -8,7 +8,7 @@ import {useKeycloak} from "@react-keycloak/web";
 
 function CreateZamestnanecFormRender() {
     const zamestnanecServices = new ZamestnanecServices();
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
 
     const navigate = useNavigate();
 

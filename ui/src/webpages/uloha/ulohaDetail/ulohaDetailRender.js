@@ -3,11 +3,10 @@ import {useNavigate, useParams} from "react-router-dom";
 import './ulohaDetailStylesheet.css'
 import UlohaServices from "../../../services/ulohaServices";
 import {useKeycloak} from "@react-keycloak/web";
-import zamestnanecServices from "../../../services/zamestnanecServices";
 import ZamestnanecServices from "../../../services/zamestnanecServices";
 
 function UlohaDetailRender() {
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
 
     const ulohaServices = new UlohaServices();
     const navigate = useNavigate();

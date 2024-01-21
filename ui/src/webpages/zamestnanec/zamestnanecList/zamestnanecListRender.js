@@ -13,12 +13,10 @@ function ZamestnanecListRender() {
 
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const {keycloak, initialized} = useKeycloak();
+    const {keycloak} = useKeycloak();
 
     const handleButtonCreateZamestnanecForm = () => {
         navigate('/zamestnanci/create-zamestnanec');
-        // const zamestnanecServices = new ZamestnanecServices();
-        // zamestnanecServices.authTesting(keycloak.token);
     };
 
     const handleClickZamestnanecDetail = (id) => {

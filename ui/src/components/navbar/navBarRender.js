@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import "./navBarStyleSheet.css";
-import {closeMobileMenu, openMobileNavbar, toggleMobileNavbar} from './navbarScript.js'
+import {toggleMobileNavbar} from './navbarScript.js'
 import {useKeycloak} from "@react-keycloak/web";
 import navBarLogoImage from '../../../../ui/src/pictures/navBarLogo.png';
 import {Link} from "react-router-dom";
-import {KeycloakLogoutOptions} from "keycloak-js";
 
 
 function NavBar() {

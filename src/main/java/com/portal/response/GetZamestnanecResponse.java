@@ -1,5 +1,6 @@
 package com.portal.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.portal.ciselniky.Pozicia;
 import com.portal.ciselniky.TypZamestnanca;
 import com.portal.entity.Uloha;
@@ -24,6 +25,7 @@ public class GetZamestnanecResponse {
 
     private String displayName;
 
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate zamestnanyOd;
 
     private TypZamestnanca typZamestnanca;

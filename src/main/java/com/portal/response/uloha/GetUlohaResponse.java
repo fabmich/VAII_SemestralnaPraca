@@ -1,5 +1,6 @@
 package com.portal.response.uloha;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.portal.ciselniky.Vrstva;
 import com.portal.entity.Zamestnanec;
 import lombok.Getter;
@@ -17,9 +18,12 @@ public class GetUlohaResponse {
     private UUID id;
 
     private String nazov;
+
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:SS")
     private LocalDateTime datumVytvorenia;
     private String popis;
 
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private Date deadline;
 
     private Integer fixVersion;

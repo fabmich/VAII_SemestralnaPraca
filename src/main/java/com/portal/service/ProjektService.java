@@ -11,9 +11,12 @@ import com.portal.mapper.ProjektMapper;
 import com.portal.request.projekt.ProjektSaveRequest;
 import com.portal.request.projekt.ProjektUpdateRequest;
 import com.portal.response.projekt.ProjektFindAllResponse;
+import com.portal.validator.projekt.DeleteProjekt;
 import com.portal.validator.projekt.ExistsProjekt;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Validated
 public class ProjektService {
 
     private final ProjektDao projektDao;
@@ -59,15 +63,18 @@ public class ProjektService {
 
 
     public Projekt getById(@ExistsProjekt UUID id) {
+
+        
         return projektDao.findById(id).get();
     }
 
 
-    public void deleteProjekt(@ExistsProjekt UUID id) {
+    public void deleteProjekt(@DeleteProjekt UUID id) {
         projektDao.deleteById(id);
     }
 
     public void update(@ExistsProjekt UUID id, ProjektUpdateRequest request) {
+
 
         var projekt = projektDao.findById(id).get();
 

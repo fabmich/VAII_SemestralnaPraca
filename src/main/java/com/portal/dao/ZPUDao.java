@@ -18,5 +18,7 @@ public interface ZPUDao extends JpaRepository<ZPU, UUID>, JpaSpecificationExecut
 
     List<ZPU> findByZamestnanecId(UUID zamestnanec);
 
+    Boolean existsByProjektId(UUID id);
+
     ZPU findByUlohaId(UUID uloha);
 }

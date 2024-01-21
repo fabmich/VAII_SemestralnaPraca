@@ -1,0 +1,103 @@
+.projekt-list-container {
+    width: 80%;
+    margin: 60px auto 60px;
+}
+
+.projekt-list {
+    list-style: none;
+    padding: 0;
+}
+
+.projekt-list-item {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: white;
+    transition: background-color 0.5s;
+
+
+}
+
+.projekt-details {
+    margin-top: 5px;
+}
+
+.projekt-details strong {
+    margin-right: 5px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.create-project-button {
+    background-color: #008C00;
+    color: #fff;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.create-project-button:hover {
+    background-color: #019d01;
+}
+
+.projekt-list-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+/*.projekt-list-item.expanded {*/
+/*    background-color: #f0f0f0;
+/*}*/
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 500px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal.show .modal-content {
+    opacity: 1;
+}
+
+.modal button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.modal button.yes {
+    background-color: #00A000;
+    color: #fff;
+}
+
+.modal button.no {
+    background-color: #FF0000;
+    color: #fff;
+}

@@ -34,7 +34,7 @@ public class ZPU {
     @JoinColumn(name = "projekt_id")
     private Projekt projekt;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "uloha_id")
     private Uloha uloha;
 }

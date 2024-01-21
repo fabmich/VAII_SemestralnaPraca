@@ -62,7 +62,7 @@ public class Uloha {
 
     private String prefix;
 
-    @OneToMany(mappedBy = "uloha", cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "uloha", cascade = {CascadeType.ALL})
     @JsonIgnore
-    private Set<ZPU> zpu;
+    private ZPU zpu;
 }

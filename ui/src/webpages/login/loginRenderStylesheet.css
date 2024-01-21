@@ -1,5 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+header {
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    max-width: 100px;
+}
+
+.content {
+    text-align: center;
+}
+
 .authButtons {
+    margin-top: 20px;
+}
 
-    margin-top: 100px;
+.loginButton, .logoutbtn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #2164cc;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
+.loginButton:hover, .logoutbtn:hover {
+    background-color: darkblue;
 }

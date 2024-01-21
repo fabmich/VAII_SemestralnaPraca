@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import './ulohaDetailStylesheet.css'
 import UlohaServices from "../../../services/ulohaServices";
+import {useKeycloak} from "@react-keycloak/web";
 
 function UlohaDetailRender() {
+    const {keycloak, initialized} = useKeycloak();
 
     const ulohaServices = new UlohaServices();
     const navigate = useNavigate();
@@ -14,11 +16,11 @@ function UlohaDetailRender() {
 
         nazov: "",
         popis: "",
-        priradenyZamestnanec: "",
+        priradenyZamestnanecId: "",
         deadline: "",
         vrstva: "",
         fixVersion: "",
-        zadavatel: "",
+        zadavatelId: "",
         stavUlohy: "",
         cisloUlohy: "",
         datumVytvorenia: "",
@@ -47,9 +49,16 @@ function UlohaDetailRender() {
             [name]: value,
         }));
     };
+    const handleSelectChange = (e) => {
+        const { name, value } = e.target;
+        setUlohaDetails((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     const handleButtonVymaz = () => {
-        ulohaServices.deleteUloha(ulohaDetails.id);
+        ulohaServices.deleteUloha(ulohaDetails.id, keycloak.token);
         navigate('/ulohy');
     }
 
@@ -57,21 +66,17 @@ function UlohaDetailRender() {
         const updateUlohaRequest = {
             nazov: ulohaDetails.nazov,
             popis: ulohaDetails.popis,
-            priradenyZamestnanec: ulohaDetails.priradenyZamestnanec,
+            priradenyZamestnanec: ulohaDetails.priradenyZamestnanecId,
             deadline: ulohaDetails.deadline,
             vrstva: ulohaDetails.vrstva,
             fixVersion: ulohaDetails.fixVersion,
-            zadavatel: ulohaDetails.zadavatel,
+            zadavatel: ulohaDetails.zadavatelId,
             stavUlohy: ulohaDetails.stavUlohy,
             cisloUlohy: ulohaDetails.cisloUlohy,
             datumVytvorenia: ulohaDetails.datumVytvorenia,
         };
 
-        // const isValid = validateForm();
-        //
-        // if (isValid) {
-        ulohaServices.updateUloha(ulohaDetails.id, updateUlohaRequest);
-        // }
+        ulohaServices.updateUloha(ulohaDetails.id, updateUlohaRequest, keycloak.token);
     };
 
     return (<div>
@@ -79,12 +84,12 @@ function UlohaDetailRender() {
                 <div className="row">
                     <div className="col">
                         <label htmlFor="nazov">Názov:</label>
-                        <input type="text" id="nazov" name="nazov" value={ulohaDetails?.nazov || ''}
+                        <input type="text" id="nazov" name="nazov" value={ulohaDetails.nazov || ''}
                                onChange={handleInputChange} required />
                     </div>
                     <div className="col">
                         <label htmlFor="popis">Popis:</label>
-                        <input type="text" id="popis" name="popis" value={ulohaDetails?.popis || ''}
+                        <input type="text" id="popis" name="popis" value={ulohaDetails.popis || ''}
                                onChange={handleInputChange} required />
                     </div>
                 </div>
@@ -93,11 +98,11 @@ function UlohaDetailRender() {
                     <div className="col">
                         <label htmlFor="priradenyZamestnanec">Priradený Zamestnanec:</label>
                         <input type="text" id="priradenyZamestnanec" name="priradenyZamestnanec"
-                               value={ulohaDetails?.priradenyZamestnanec || ''} onChange={handleInputChange} required />
+                               value={ulohaDetails.priradenyZamestnanecId || ''} onChange={handleInputChange} required />
                     </div>
                     <div className="col">
                         <label htmlFor="deadline">Deadline:</label>
-                        <input type="text" id="deadline" name="deadline" value={ulohaDetails?.deadline || ''}
+                        <input type="text" id="deadline" name="deadline" value={ulohaDetails.deadline || ''}
                                onChange={handleInputChange} required />
                     </div>
                 </div>
@@ -105,12 +110,12 @@ function UlohaDetailRender() {
                 <div className="row">
                     <div className="col">
                         <label htmlFor="vrstva">Vrstva:</label>
-                        <input type="text" id="vrstva" name="vrstva" value={ulohaDetails?.vrstva || ''}
+                        <input type="text" id="vrstva" name="vrstva" value={ulohaDetails.vrstva || ''}
                                onChange={handleInputChange} required />
                     </div>
                     <div className="col">
                         <label htmlFor="fixVersion">Fix Version:</label>
-                        <input type="text" id="fixVersion" name="fixVersion" value={ulohaDetails?.fixVersion || ''}
+                        <input type="text" id="fixVersion" name="fixVersion" value={ulohaDetails.fixVersion || ''}
                                onChange={handleInputChange} required />
                     </div>
                 </div>
@@ -118,26 +123,37 @@ function UlohaDetailRender() {
                 <div className="row">
                     <div className="col">
                         <label htmlFor="zadavatel">Zadavatel:</label>
-                        <input type="text" id="zadavatel" name="zadavatel" value={ulohaDetails?.zadavatel || ''}
+                        <input type="text" id="zadavatel" name="zadavatel" value={ulohaDetails.zadavatelId || ''}
                                onChange={handleInputChange} required />
                     </div>
                     <div className="col">
                         <label htmlFor="stavUlohy">Stav Úlohy:</label>
-                        <input type="text" id="stavUlohy" name="stavUlohy" value={ulohaDetails?.stavUlohy || ''}
-                               onChange={handleInputChange} required />
+                        <select
+                            id="stavUlohy"
+                            name="stavUlohy"
+                            value={ulohaDetails.stavUlohy || ''}
+                            onChange={handleSelectChange}
+                            required
+                        >
+                            <option value="BACKLOG">Backlog</option>
+                            <option value="IN_PROGRESS">In progress</option>
+                            <option value="CANCELED">Canceled</option>
+                            <option value="FINISHED">Finished</option>
+                            <option value="FOR_TESTING">For testing</option>
+                        </select>
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col">
                         <label htmlFor="cisloUlohy">Číslo Úlohy:</label>
-                        <input type="text" id="cisloUlohy" name="cisloUlohy" value={ulohaDetails?.cisloUlohy || ''}
-                               onChange={handleInputChange} required />
+                        <input type="text" id="cisloUlohy" name="cisloUlohy" value={ulohaDetails.cisloUlohy || ''}
+                               onChange={handleInputChange} required disabled  />
                     </div>
                     <div className="col">
                         <label htmlFor="datumVytvorenia">Dátum Vytvorenia:</label>
-                        <input type="text" id="datumVytvorenia" name="datumVytvorenia" value={ulohaDetails?.datumVytvorenia || ''}
-                               onChange={handleInputChange} required />
+                        <input type="text" id="datumVytvorenia" name="datumVytvorenia" value={ulohaDetails.datumVytvorenia || ''}
+                               onChange={handleInputChange} required disabled  />
                     </div>
                 </div>
 

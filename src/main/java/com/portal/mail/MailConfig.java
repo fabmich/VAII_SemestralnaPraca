@@ -7,6 +7,10 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
+/**
+ *
+ * NENI CAST SP VAII, to som len mal ako proof of concept
+ */
 
 @Configuration
 @Component

@@ -4,14 +4,15 @@ import com.portal.request.SMSRequest;
 import com.portal.request.SimpleEmailRequest;
 import com.portal.service.EmailService;
 import jakarta.transaction.Transactional;
-import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.OffsetDateTime;
+
+/**
+ *
+ * NENI CAST SP VAII, to som len mal ako proof of concept
+ */
 
 @RestController
 @RequiredArgsConstructor

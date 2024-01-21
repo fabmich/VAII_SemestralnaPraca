@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 
+
+/**
+Tuto triedu som nevymyslel, je z internetu
+ */
 public class JWTParserUtil {
 
 

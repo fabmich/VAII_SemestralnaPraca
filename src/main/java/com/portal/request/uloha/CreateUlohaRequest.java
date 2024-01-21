@@ -2,14 +2,10 @@ package com.portal.request.uloha;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.portal.ciselniky.StavUlohy;
 import com.portal.ciselniky.Vrstva;
-import com.portal.entity.Projekt;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.UUID;
 

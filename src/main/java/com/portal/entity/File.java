@@ -1,12 +1,11 @@
 package com.portal.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
@@ -22,7 +21,6 @@ public class File {
     @Id
     @UuidGenerator
     private UUID id;
-
 
     private String name;
 

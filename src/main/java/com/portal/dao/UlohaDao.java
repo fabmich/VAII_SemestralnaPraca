@@ -14,7 +14,6 @@ public interface UlohaDao extends JpaRepository<Uloha, UUID> {
 
     Page<Uloha> findByZpuZamestnanecId(UUID id, Pageable pageable);
 
-//    Page<Uloha> findByProjektId
 
 
 

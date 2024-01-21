@@ -1,8 +1,11 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    margin-top: 60px;
+}
 
 .add-button-container {
-    text-align: right;
-    margin-top: 60px;
-    margin-right: 30px
+    margin-left: auto;
 }
 
 .add-button {
@@ -12,6 +15,17 @@
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 10px;
+
+}
+
+.add-button:hover {
+    background-color: #019d01;
+}
+
+h2 {
+    margin-right: auto;
 }
 
 .employee-list {
@@ -22,14 +36,17 @@
 }
 
 .employee-tile {
-    width: 23%; /* Adjust as needed, considering margins and padding */
+    width: 18%;
     margin: 1%;
     border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 10px;
     box-sizing: border-box;
     cursor: pointer;
     transition: transform 0.3s;
-    aspect-ratio: 1; /* Set aspect-ratio to 1 for a square shape */
+    aspect-ratio: 1;
+    background-color: #f8f6f6;
+
 }
 
 .employee-tile:hover {
@@ -42,9 +59,9 @@
 
 .employee-img-container img {
     max-width: 100%;
-    max-height: 150px; /* Adjust the max height as needed */
+    height: 170px;
     object-fit: cover;
-    border-radius: 8px; /* Optional: Add border radius for rounded corners */
+    border-radius: 8px;
 }
 
 .employee-info-container {
@@ -56,17 +73,18 @@
     font-size: 14px;
 }
 
-/* Responsive styles for smaller screens */
+
 @media (max-width: 768px) {
     .employee-tile {
-        width: 48%; /* Adjust for smaller screens */
+        width: 46%;
     }
 }
 
-/* Responsive styles for mobile screens */
+
 @media (max-width: 480px) {
     .employee-tile {
-        width: 100%; /* Full width on mobile screens */
+        width: 100%;
+
     }
 }
 
@@ -80,9 +98,9 @@
 
 .employee-img-container img {
     max-width: 100%;
-    max-height: 100%; /* Max height 100% to maintain aspect ratio */
+    max-height: 100%;
     object-fit: cover;
-    border-radius: 8px; /* Optional: Add border radius for rounded corners */
+    border-radius: 8px;
 }
 
 .employee-info-container {
@@ -91,5 +109,5 @@
 
 .employee-info {
     margin: 5px 0;
-    font-size: 16px; /* Increase font size */
+    font-size: 16px;
 }

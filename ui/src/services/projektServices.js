@@ -1,12 +1,25 @@
 import axios from 'axios';
 
-const BASE_ULOHA_URL = 'http://localhost:8080/uloha';
 const BASE_PROJEKT_URL = 'http://localhost:8080/projekt';
 
+class ProjektServices {
 
-class UlohaServices {
+    saveProjekt(postData, accessToken) {
+        axios.post(BASE_PROJEKT_URL + '/save', postData, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
-    fetchProjekty() {
+    findAllProjekty() {
         return axios.post(BASE_PROJEKT_URL + '/find-all', null)
             .then(response => {
                 console.log('Response:', response.data);
@@ -18,42 +31,8 @@ class UlohaServices {
             });
     }
 
-    saveUloha(postData, accessToken) {
-
-        axios.post(BASE_ULOHA_URL + '/save', postData, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => {
-                console.log('Response:', response.data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-
-    findAllUlohy(accessToken, request) {
-
-        const headers = {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-        };
-        return axios.post(BASE_ULOHA_URL + '/find-all', request, {headers})
-            .then(response => {
-                console.log('Response:', response.data);
-                return response.data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                throw error;
-            });
-    }
-
-    getUloha(id) {
-        return axios.get(BASE_ULOHA_URL + '/' + id)
+    getProjekt(id) {
+        return axios.get(BASE_PROJEKT_URL + '/' + id)
             .then(response => {
                 console.log('Response:', response.data);
                 return response.data;
@@ -65,24 +44,8 @@ class UlohaServices {
 
     }
 
-    updateUloha(id, updateUlohaRequest, accessToken) {
-        axios.put(BASE_ULOHA_URL + '/' + id, updateUlohaRequest, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => {
-                console.log('Response:', response.data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-
-    }
-
-    deleteUloha(id, accessToken) {
-        axios.delete(BASE_ULOHA_URL + '/' + id, {
+    updateProjekt(id, request, accessToken) {
+        axios.put(BASE_PROJEKT_URL + '/' + id, request, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
@@ -95,6 +58,23 @@ class UlohaServices {
                 console.error('Error:', error);
             });
     }
+
+    deleteProjekt(id, accessToken) {
+        axios.delete(BASE_PROJEKT_URL + '/' + id, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+
 }
 
-export default UlohaServices;
+export default ProjektServices;

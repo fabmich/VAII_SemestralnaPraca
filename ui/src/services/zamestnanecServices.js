@@ -1,11 +1,10 @@
 import axios from 'axios';
-import {useKeycloak} from "@react-keycloak/web";
-import {useEffect, useState} from "react";
 
 const BASE_ZAMESTNANEC_URL = 'http://localhost:8080/zamestnanec'; ///zamestnanec/getId
 
 class ZamestnanecServices {
-    saveZamestnanec(postData, file) {
+
+    saveZamestnanec(postData, file, accessToken) {
         if (file !== null) {
             const formData = new FormData();
             formData.append('file', file);
@@ -20,6 +19,7 @@ class ZamestnanecServices {
 
                     return axios.post(BASE_ZAMESTNANEC_URL + '/save', postData, {
                         headers: {
+                            Authorization: `Bearer ${accessToken}`,
                             'Content-Type': 'application/json',
                         },
                     });
@@ -33,6 +33,7 @@ class ZamestnanecServices {
         } else {
             return axios.post(BASE_ZAMESTNANEC_URL + '/save', postData, {
                 headers: {
+                    Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 },
             })
@@ -52,7 +53,7 @@ class ZamestnanecServices {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
         };
-        return axios.post(BASE_ZAMESTNANEC_URL + '/find-all', null, { headers })
+        return axios.post(BASE_ZAMESTNANEC_URL + '/find-all', null, {headers})
             .then(response => {
                 console.log('Response:', response.data);
                 return response.data;
@@ -75,9 +76,10 @@ class ZamestnanecServices {
             });
     }
 
-    updateZamestnanec(id, updateZamestnanecRequest) {
+    updateZamestnanec(id, updateZamestnanecRequest, accessToken) {
         axios.put(BASE_ZAMESTNANEC_URL + '/' + id, updateZamestnanecRequest, {
             headers: {
+                Authorization: `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
             },
         })
@@ -89,8 +91,13 @@ class ZamestnanecServices {
             });
     }
 
-    deleteZamestnanec(id) {
-        axios.delete(BASE_ZAMESTNANEC_URL + '/' + id)
+    deleteZamestnanec(id, accessToken) {
+        axios.delete(BASE_ZAMESTNANEC_URL + '/' + id, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json',
+            },
+        })
             .then(response => {
                 console.log('Response:', response.data);
             })
@@ -111,6 +118,22 @@ class ZamestnanecServices {
                 throw error;
             });
 
+    }
+
+    authTesting(accessToken) {
+        const headers = {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+        };
+        return axios.get(BASE_ZAMESTNANEC_URL + '/getId', {headers})
+            .then(response => {
+                console.log('Response:', response.data);
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                throw error;
+            });
     }
 
 }

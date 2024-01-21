@@ -23,7 +23,6 @@ function ZamestnanecDetailRender() {
         kontraktDo: '',
         typZamestnanca: '',
         pozicia: '',
-
         telefonneCislo: '',
         email: ''
     });
@@ -85,6 +84,14 @@ function ZamestnanecDetailRender() {
         setShowModal(true);
     }
 
+    const handleSelectChange = (e) => {
+        const {name, value} = e.target;
+        setZamestnanecDetails((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
     const handleModalYes = () => {
         zamestnanecServices.deleteZamestnanec(zamestnanecDetails.id, keycloak.token);
         navigate('/zamestnanci');
@@ -98,7 +105,7 @@ function ZamestnanecDetailRender() {
 
 
     return (
-        <div>
+        <div className="zamestnanec-detail-contentForm">
             <h2 className="zamestnanec-detail-header">Údaje o zamestnancovi</h2>
 
             <form id="zamestnanecForm" className="zamestnanec-form">
@@ -140,14 +147,32 @@ function ZamestnanecDetailRender() {
                 <div className="row">
 
                     <div className="col">
-                        <label htmlFor="typZamestnanca">Typ Zamestnanca:</label>
-                        <input type="text" id="typZamestnanca" name="typZamestnanca"
-                               value={zamestnanecDetails?.typZamestnanca || ''} onChange={handleInputChange} required/>
+                        <label htmlFor="typZamestnanca">Typ zmluvy:</label>
+                        <select
+                            id="typZamestnanca"
+                            name="typZamestnanca"
+                            value={zamestnanecDetails.typZamestnanca}
+                            onChange={handleSelectChange}
+                        >
+                            <option value="TPP">Trvalý pracovný pomer</option>
+                            <option value="DOHODAR">Dohodár</option>
+                        </select>
                     </div>
                     <div className="col">
-                        <label htmlFor="Pozicia">Pozícia:</label>
-                        <input type="text" id="Pozicia" name="Pozicia" value={zamestnanecDetails?.pozicia || ''}
-                               onChange={handleInputChange} required/>
+                        <label htmlFor="pozicia">Pozícia:</label>
+                        <select
+                            id="pozicia"
+                            name="pozicia"
+                            value={zamestnanecDetails.pozicia}
+                            onChange={handleSelectChange}
+                        >
+                            <option value="TESTER">Tester</option>
+                            <option value="PROGRAMATOR">Programátor</option>
+                            <option value="CEO">CEO</option>
+                            <option value="UCTOVNIK">Účtovník</option>
+                            <option value="SEF_PROGRAMATOROV">Šef programátorov</option>
+                            <option value="UPRATOVAC">Upratovač</option>
+                        </select>
                     </div>
                 </div>
                 <div className="row">
@@ -181,11 +206,11 @@ function ZamestnanecDetailRender() {
                         <li key={uloha.id} className="uloha-item">
                             <div className="row">
                                 <p className="uloha-info">ID: {uloha.id}</p>
-                                <p className="uloha-info">Nazov: {uloha.nazov}</p>
+                                <p className="uloha-info">Názov: {uloha.nazov}</p>
                             </div>
                             <div className="row">
-                                <p className="uloha-info">Zadavatel: {uloha.zadavatel.meno + " " + uloha.zadavatel.priezvisko}</p>
-                                <p className="uloha-info">Stav ulohy: {uloha.stavUlohy}</p>
+                                <p className="uloha-info">Zadávateľ: {uloha.zadavatel.meno + " " + uloha.zadavatel.priezvisko}</p>
+                                <p className="uloha-info">Stav úlohy: {uloha.stavUlohy}</p>
                                 <p className="uloha-info">Cislo ulohy: {uloha.cisloUlohy}</p>
                             </div>
                         </li>
@@ -194,9 +219,9 @@ function ZamestnanecDetailRender() {
             )}
             <div className={`modal ${showModal ? 'show' : ''}`}>
                 <div className="modal-content">
-                    <p>Chcete naozaj vymazat tohto zakaznika?</p>
-                    <button className="yes" onClick={handleModalYes}>Yes</button>
-                    <button className="no" onClick={handleModalNo}>No</button>
+                    <p>Chcete naozaj vymazať tohto zamestnanca?</p>
+                    <button className="yes" onClick={handleModalYes}>Áno</button>
+                    <button className="no" onClick={handleModalNo}>Nie</button>
                 </div>
             </div>
         </div>

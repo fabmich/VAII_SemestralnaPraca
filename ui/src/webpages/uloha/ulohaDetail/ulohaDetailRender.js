@@ -3,6 +3,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import './ulohaDetailStylesheet.css'
 import UlohaServices from "../../../services/ulohaServices";
 import {useKeycloak} from "@react-keycloak/web";
+import zamestnanecServices from "../../../services/zamestnanecServices";
+import ZamestnanecServices from "../../../services/zamestnanecServices";
 
 function UlohaDetailRender() {
     const {keycloak, initialized} = useKeycloak();
@@ -11,6 +13,8 @@ function UlohaDetailRender() {
     const navigate = useNavigate();
 
     const {id} = useParams();
+
+    const [zoznamZamestnancov, setZoznamZamestnancov] = useState([])
 
     const [ulohaDetails, setUlohaDetails] = useState({
 
@@ -24,6 +28,9 @@ function UlohaDetailRender() {
         stavUlohy: "",
         cisloUlohy: "",
         datumVytvorenia: "",
+        menoPriezviskoZadavatela:"",
+        menoPriezviskoPriradenehoZamestnanca:""
+
     });
 
     useEffect(() => {
@@ -34,12 +41,29 @@ function UlohaDetailRender() {
                 setUlohaDetails(response);
 
             } catch (error) {
-                console.error("Error fetching Detail Zamestnanca:", error);
+                console.error("Error fetching Detail ulohy:", error);
             }
         };
 
         fetchDetailUlohy();
     }, [id]);
+
+
+    useEffect(() => {
+        const fetchZoznamZamestnancov = async () => {
+            try {
+                const zamestnanecServices = new ZamestnanecServices();
+                const response = await zamestnanecServices.findAllZamestnanciSimple();
+
+                setZoznamZamestnancov(response);
+
+            } catch (error) {
+                console.error("Error fetching ZoznamZamestnancov:", error);
+            }
+        };
+
+        fetchZoznamZamestnancov();
+    }, []);
 
 
     const handleInputChange = (e) => {
@@ -79,7 +103,7 @@ function UlohaDetailRender() {
         ulohaServices.updateUloha(ulohaDetails.id, updateUlohaRequest, keycloak.token);
     };
 
-    return (<div>
+    return (<div className="uloha-detail-form">
             <form id="ulohaForm" className="uloha-form">
                 <div className="row">
                     <div className="col">
@@ -96,9 +120,21 @@ function UlohaDetailRender() {
 
                 <div className="row">
                     <div className="col">
-                        <label htmlFor="priradenyZamestnanec">Priradený Zamestnanec:</label>
-                        <input type="text" id="priradenyZamestnanec" name="priradenyZamestnanec"
-                               value={ulohaDetails.priradenyZamestnanecId || ''} onChange={handleInputChange} required />
+                        <label htmlFor="priradenyZamestnanecId">Priradený Zamestnanec:</label>
+                        <select
+                            id="priradenyZamestnanecId"
+                            name="priradenyZamestnanecId"
+                            value={ulohaDetails.priradenyZamestnanecId}
+                            onChange={handleInputChange}
+                        >
+                            <option value={ulohaDetails.menoPriezviskoPriradenehoZamestnanca}>{ulohaDetails.menoPriezviskoPriradenehoZamestnanca}</option>
+                            {zoznamZamestnancov.map((zamestnanec) => (
+                                <option key={zamestnanec.id} value={zamestnanec.id}>
+                                    {zamestnanec.meno + ' ' + zamestnanec.priezvisko}
+                                </option>
+                            ))}
+                        </select>
+
                     </div>
                     <div className="col">
                         <label htmlFor="deadline">Deadline:</label>
@@ -122,19 +158,33 @@ function UlohaDetailRender() {
 
                 <div className="row">
                     <div className="col">
-                        <label htmlFor="zadavatel">Zadavatel:</label>
-                        <input type="text" id="zadavatel" name="zadavatel" value={ulohaDetails.zadavatelId || ''}
-                               onChange={handleInputChange} required />
+                        <label htmlFor="zadavatelId">Zadávateľ:</label>
+                        <select
+                            id="zadavatelId"
+                            name="zadavatelId"
+                            value={ulohaDetails.zadavatelId}
+                            onChange={handleInputChange}
+                        >
+                            <option value={ulohaDetails.menoPriezviskoZadavatela}>{ulohaDetails.menoPriezviskoZadavatela}</option>
+                            {zoznamZamestnancov.map((zamestnanec) => (
+                                <option key={zamestnanec.id} value={zamestnanec.id}>
+                                    {zamestnanec.meno + ' ' + zamestnanec.priezvisko}
+                                </option>
+                            ))}
+                        </select>
                     </div>
+
                     <div className="col">
                         <label htmlFor="stavUlohy">Stav Úlohy:</label>
                         <select
                             id="stavUlohy"
                             name="stavUlohy"
                             value={ulohaDetails.stavUlohy || ''}
+
                             onChange={handleSelectChange}
-                            required
+
                         >
+                            <option value={ulohaDetails.stavUlohy}>{ulohaDetails.stavUlohy}</option>
                             <option value="BACKLOG">Backlog</option>
                             <option value="IN_PROGRESS">In progress</option>
                             <option value="CANCELED">Canceled</option>

@@ -184,7 +184,6 @@ function CreateZamestnanecFormRender() {
                             >
                                 <option value="TPP">Trvalý pracovný pomer</option>
                                 <option value="DOHODAR">Dohodár</option>
-                                {/*<option value="VYVOJARSKE">Vývojárske</option>*/}
                             </select>
                         </div>
                     </div>
@@ -203,6 +202,9 @@ function CreateZamestnanecFormRender() {
                                 <option value="TESTER">Tester</option>
                                 <option value="PROGRAMATOR">Programátor</option>
                                 <option value="CEO">CEO</option>
+                                <option value="UCTOVNIK">Účtovník</option>
+                                <option value="SEF_PROGRAMATOROV">Šef programátorov</option>
+                                <option value="UPRATOVAC">Upratovač</option>
                             </select>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     margin-top: 60px;
+    margin-left: 10px;
 }
 
 .add-button-container {
@@ -33,6 +34,8 @@ h2 {
     padding: 0;
     display: flex;
     flex-wrap: wrap;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .employee-tile {

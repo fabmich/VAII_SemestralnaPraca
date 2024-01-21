@@ -58,34 +58,26 @@ function MainContent() {
         <div className="App">
             <ReactKeycloakProvider authClient={keycloak}>
                 <NavBarRender/>
+
                     <Routes>
-                        <Route path="/" element={<LoginRender />} />
+                        <Route path="/" element={<LoginRender/>}/>
 
-                        <Route path="/home" element={<PrivateRoute> <IndexRender/> </PrivateRoute> } />
-                        {/*<Route path="/home" element={ <IndexRender/>  } />*/}
-                        <Route path="/zamestnanci" element={<PrivateRoute> <ZamestnanecListRender/> </PrivateRoute>}/>
-                        {/*<Route path="/zamestnanci" element={<ZamestnanecListRender/> }/>*/}
+                        <Route path="/home" element={ <PrivateRoute> <IndexRender/></PrivateRoute>}/>
+                        <Route path="/zamestnanci" element={ <PrivateRoute><ZamestnanecListRender/></PrivateRoute>}/>
 
+                        <Route path="/zamestnanci/create-zamestnanec" element={ <PrivateRoute><CreateZamestnanecFormRender/></PrivateRoute>}/>
+                        <Route path="/zamestnanci/:id/detail" element={ <PrivateRoute><ZamestnanecDetailRender/></PrivateRoute>}/>
 
-                        {/*<Route path="/zamestnanci" element={<PrivateRoute>*/}
-                            {/*    <ZamestnanecListRender/>*/}
-                            {/*</PrivateRoute>} />*/}
+                        <Route path="/ulohy" element={ <PrivateRoute><UlohaListRender/></PrivateRoute>}/>
+                        <Route path="/ulohy/create-uloha" element={ <PrivateRoute><UlohaCreateFormRender/></PrivateRoute>}/>
+                        <Route path="/ulohy/:id/detail" element={ <PrivateRoute><UlohaDetailRender/></PrivateRoute>}/>
 
-                        <Route path="/zamestnanci/create-zamestnanec" element={<CreateZamestnanecFormRender/>}/>
-                        <Route path="/zamestnanci/:id/detail" element={<ZamestnanecDetailRender/>}/>
+                        <Route path="/projekty" element={ <PrivateRoute><ProjektListRender/></PrivateRoute>}/>
+                        <Route path="/projekty/create-projekt" element={ <PrivateRoute><ProjektCreateFormRender/></PrivateRoute>}/>
+                        <Route path="/projekty/:id/detail" element={ <PrivateRoute><ProjektDetailRender/></PrivateRoute>}/>
 
-
-                        <Route path="/ulohy" element={<UlohaListRender/>}/>
-                        <Route path="/ulohy/create-uloha" element={<UlohaCreateFormRender/>}/>
-                        <Route path="/ulohy/:id/detail" element={<UlohaDetailRender/>}/>
-
-                            {/*<Route path="/tasks" component={Tasks} />*/}
-                            <Route path="/projekty" element={<ProjektListRender/>} />
-                            <Route path="/projekty/create-projekt" element={<ProjektCreateFormRender/>} />
-                        <Route path="/projekty/:id/detail" element={<ProjektDetailRender/>}/>
-
-                        {/*<Route path="/kontakty" component={Contacts} />*/}
                     </Routes>
+
                 <FooterRender/>
 
             </ReactKeycloakProvider>

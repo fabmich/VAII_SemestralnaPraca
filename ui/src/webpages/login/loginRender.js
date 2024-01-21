@@ -17,7 +17,7 @@ function LoginRender() {
             </header>
 
             <div className="content">
-                <p>This is some text below the header.</p>
+                <p>Portál pre správu projektov a úloh.</p>
 
                 <div className="authButtons">
                     {!keycloak.authenticated && (

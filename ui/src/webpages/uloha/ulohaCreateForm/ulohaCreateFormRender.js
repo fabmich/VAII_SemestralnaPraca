@@ -26,7 +26,6 @@ function UlohaCreateFormRender() {
     const [zamestnanci, setZamestnanci] = useState([]);
 
     useEffect(() => {
-        // Fetch projects when the component mounts
         fetchProjekty();
         fetchZamestnanci();
     }, []);

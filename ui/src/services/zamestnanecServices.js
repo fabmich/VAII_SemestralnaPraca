@@ -120,6 +120,20 @@ class ZamestnanecServices {
 
     }
 
+    findAllZamestnanciSimple() {
+        // console.log(accessToken);
+
+        return axios.post(BASE_ZAMESTNANEC_URL + '/find-all-simple')
+            .then(response => {
+                console.log('Response:', response.data);
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                throw error;
+            });
+    }
+
     authTesting(accessToken) {
         const headers = {
             Authorization: `Bearer ${accessToken}`,

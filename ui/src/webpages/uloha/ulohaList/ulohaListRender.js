@@ -3,16 +3,20 @@ import {useNavigate} from 'react-router-dom';
 import {useKeycloak} from "@react-keycloak/web";
 import UlohaServices from "../../../services/ulohaServices";
 import "./ulohaListStylesheet.css"
+import ZpuServices from "../../../services/zpuServices";
 
 function UlohaListRender() {
     const [listOfUlohy, setListOfUlohy] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const {keycloak, initialized} = useKeycloak();
+    const ulohaServices = new UlohaServices();
+    const [projekty, setProjekty] = useState([]);
 
     const [findAllRequest, setFindAllRequest] = useState({pageNumber: "0", pageSize: "5"});
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [selectedProjektId, setSelectedProjektId] = useState("");
 
 
     const handleButtonCreateUloha = () => {
@@ -25,13 +29,23 @@ function UlohaListRender() {
 
     };
 
+    const fetchProjekty = async () => {
+        try {
+            const projects = await ulohaServices.fetchProjekty();
+            setProjekty(projects);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        }
+    };
+
     useEffect(() => {
         const fetchUlohy = async () => {
             try {
-                const ulohaServices = new UlohaServices();
-                const response = await ulohaServices.findAllUlohy(null, {
-                    pageNumber: (currentPage - 1).toString(), // Adjust page numbering to start from 0
-                    pageSize: "5", // Adjust this as needed
+                const zpuServices = new ZpuServices();
+                const response = await zpuServices.findAllUlohy(null, {
+                    pageNumber: (currentPage - 1).toString(),
+                    pageSize: "5",
+                    projektId: selectedProjektId,
                 });
                 setListOfUlohy(response.content);
                 setTotalPages(response.totalPages);
@@ -41,18 +55,20 @@ function UlohaListRender() {
                 setLoading(false);
             }
         };
+
         fetchUlohy();
-    }, []);
+        fetchProjekty()
+    }, [currentPage, selectedProjektId]);
+
 
 
     const handlePageChange = async (pageNumber) => {
         try {
-            const ulohaServices = new UlohaServices();
-
-
-            const response = await ulohaServices.findAllUlohy(keycloak.token, {
+            const zpuServices = new ZpuServices();
+            const response = await zpuServices.findAllUlohy(keycloak.token, {
                 pageNumber: (pageNumber - 1).toString(),
-                pageSize: findAllRequest.pageSize
+                pageSize: findAllRequest.pageSize,
+                projektId: selectedProjektId,
             });
             setListOfUlohy(response.content);
             setCurrentPage(pageNumber);
@@ -81,25 +97,29 @@ function UlohaListRender() {
 
 
     const handlePageSizeChange = async (pageSize) => {
-        const updatedFindAllRequest = {...findAllRequest, pageSize: pageSize.toString()};
+        const updatedFindAllRequest = { ...findAllRequest, pageSize: pageSize.toString() };
         setFindAllRequest(updatedFindAllRequest);
 
         if (pageSize.toString() === "Všetky") {
-            updatedFindAllRequest.pageSize = 1000
+            updatedFindAllRequest.pageSize = 1000;
         }
 
-
         try {
-            const ulohaServices = new UlohaServices();
-            const response = await ulohaServices.findAllUlohy(keycloak.token, {
+            const zpuServices = new ZpuServices();
+            const response = await zpuServices.findAllUlohy(keycloak.token, {
                 pageNumber: 0,
-                pageSize: updatedFindAllRequest.pageSize, // Use the updated pageSize here
+                pageSize: updatedFindAllRequest.pageSize,
+                projektId: selectedProjektId,
             });
             setListOfUlohy(response.content);
             setCurrentPage(1);
         } catch (error) {
             console.error("Error fetching Ulohy:", error);
         }
+    };
+    const handleProjektChange = (event) => {
+        const selectedProjekt = event.target.value;
+        setSelectedProjektId(selectedProjekt);
     };
 
     const renderPageSizeDropdown = () => {
@@ -123,12 +143,27 @@ function UlohaListRender() {
     return (
         <div className="uloha-list-content">
             <div className="add-button-container">
-                <h2>Zoznam úloh</h2>
+                <h2 className="uloha-list-header">Zoznam úloh</h2>
                 {renderPageSizeDropdown()}
                 <button className="add-button" onClick={handleButtonCreateUloha}>+</button>
             </div>
 
-            <ul className="ulohy-list">
+
+            <select className="uloha-list-projekt-dropdown"
+                id="projekt"
+                name="projekt"
+                value={selectedProjektId}
+                onChange={handleProjektChange}
+            >
+                <option value="">Všetky projekty</option>
+                {projekty.map((projekt) => (
+                    <option key={projekt.id} value={projekt.id}>
+                        {projekt.nazov}
+                    </option>
+                ))}
+            </select>
+
+            <ul className="ulohy-zoznam-list">
                 <li className="uloha-header-list-item uloha-header">
                     <div className="uloha-header-info-row">
                         <div className="uloha-header-column">
@@ -178,7 +213,7 @@ function UlohaListRender() {
                 <button className="pagination-button" onClick={handlePreviousPage}>
                     &lt;
                 </button>
-                {/* You can render the page numbers dynamically */}
+                {/* Dynamicky redender cisel */}
                 {Array.from({length: totalPages}, (_, index) => (
                     <button key={index} className="pagination-button" onClick={() => handlePageChange(index + 1)}>
                         {index + 1}

@@ -1,3 +1,9 @@
+.zamestnanec-detail-contentForm {
+    max-width: 2000px;
+    margin: 0px auto 0px auto;
+    padding: 20px;
+}
+
 .zamestnanec-detail-header {
     margin-top: 60px;
 }
@@ -60,14 +66,23 @@ input {
 .ulohy-list {
     list-style-type: none;
     padding: 0;
-    margin-top: 60px;
+    margin-top: 40px;
     margin-bottom: 60px;
+    background-color: white;
 }
 
 .uloha-item {
     border: 1px solid #ccc;
+    border-radius: 5px;
     margin-bottom: 10px;
     padding: 10px;
+}
+
+
+.uloha-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .uloha-item .row {
@@ -120,6 +135,8 @@ input {
     margin: 0 10px;
     padding: 10px 20px;
     cursor: pointer;
+    border: none;
+    border-radius: 5px;
 }
 
 .modal button.yes {
@@ -130,4 +147,11 @@ input {
 .modal button.no {
     background-color: #FF0000;
     color: #fff;
+}
+
+@media (max-width: 767px) {
+    .col {
+        flex: 0 0 100%;
+        margin-bottom: 10px;
+    }
 }

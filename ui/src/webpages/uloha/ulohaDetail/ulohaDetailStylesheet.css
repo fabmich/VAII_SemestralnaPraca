@@ -1,3 +1,10 @@
+.uloha-detail-form {
+    max-width: 2000px;
+    margin: 0px auto 0px auto;
+    padding: 20px;
+}
+
+
 .uloha-form {
     margin-top: 60px;
     margin-bottom: 60px;

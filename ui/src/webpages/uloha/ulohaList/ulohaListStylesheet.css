@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.uloha-list-header {
+    margin-left: 20px;
+}
+
 .add-button-container {
     text-align: right;
     margin-top: 60px;
@@ -19,6 +23,13 @@
     padding: 10px 10px;
     border: none;
     cursor: pointer;
+}
+
+.uloha-list-projekt-dropdown {
+
+    max-width: 400px;
+    padding: 5px;
+    margin-left: 20px;
 }
 
 .uloha-info-row {
@@ -82,8 +93,14 @@
 .uloha-list-item .row:last-child {
     display: block;
 }
-.ulohy-list {
-    margin: 0 20px;
+.ulohy-zoznam-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    /*margin: 0 20px;*/
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .pagination-container {
@@ -122,4 +139,24 @@
 .page-size-dropdown select {
     padding: 5px;
     width: 50px;
+}
+
+@media screen and (max-width: 768px) {
+    .uloha-info-row,
+    .uloha-header-info-row,
+    .uloha-list-item,
+    .uloha-info-column,
+    .uloha-header-column,
+    .uloha-list-item {
+        margin: 0; /* Reset margin for mobile layout */
+    }
+
+    .uloha-list-item.employee-info {
+        margin-right: 0; /* Remove margin for mobile layout */
+    }
+
+    .uloha-header-info-row,
+    .uloha-list-item .row {
+        flex-direction: row; /* Revert to horizontal layout for headers and nested rows */
+    }
 }

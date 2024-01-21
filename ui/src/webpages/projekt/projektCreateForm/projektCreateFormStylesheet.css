@@ -1,0 +1,26 @@
+
+.projekt-create-vytvoritBtn {
+    padding: 10px 20px;
+    background-color: #00A000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.projekt-create-vytvoritBtn:hover {
+    background-color: #008800;
+}
+
+.projekt-create-zrusitBtn {
+    padding: 10px 20px;
+    background-color: #FF0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.projekt-create-zrusitBtn:hover {
+    background-color: #CC0000;
+}

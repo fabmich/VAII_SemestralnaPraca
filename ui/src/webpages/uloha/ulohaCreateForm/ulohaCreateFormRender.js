@@ -1,13 +1,15 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Navigate, useNavigate} from "react-router-dom";
 import UlohaServices from "../../../services/ulohaServices";
+import ZamestnanecServices from "../../../services/zamestnanecServices";
 import './ulohaCreateFormStylesheet.css'
-
+import {useKeycloak} from "@react-keycloak/web";
 
 function UlohaCreateFormRender() {
-
     const ulohaServices = new UlohaServices();
+    const zamestnanecServices = new ZamestnanecServices();
     const navigate = useNavigate();
+    const {keycloak, initialized} = useKeycloak();
 
     const [formStateUloha, setFormStateUloha] = useState({
         nazov: "",
@@ -17,9 +19,36 @@ function UlohaCreateFormRender() {
         vrstva: "",
         fixVersion: "",
         zadavatel: "",
-        stavUlohy: "",
-        cisloUlohy: "",
+        projekt: "",
+
     });
+    const [projekty, setProjekty] = useState([]);
+    const [zamestnanci, setZamestnanci] = useState([]);
+
+    useEffect(() => {
+        // Fetch projects when the component mounts
+        fetchProjekty();
+        fetchZamestnanci();
+    }, []);
+
+    const fetchProjekty = async () => {
+        try {
+            const projects = await ulohaServices.fetchProjekty();
+            setProjekty(projects);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        }
+    };
+
+    const fetchZamestnanci = async () => {
+        try {
+            const zamestnanci = await zamestnanecServices.findAllZamestnanci(null);
+            setZamestnanci(zamestnanci);
+        } catch (error) {
+            console.error("Error fetching zamestnanci:", error);
+        }
+    };
+
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -33,96 +62,135 @@ function UlohaCreateFormRender() {
         navigate('/ulohy');
     }
 
-
     const handleButtonVytvorit = () => {
-        // const isValid = validateForm();
-
-        // if (isValid) {
-            ulohaServices.saveUloha(formStateUloha);
-        // }
+        ulohaServices.saveUloha(formStateUloha, keycloak.token);
     };
 
 
     return (
         <div className="contentForm">
             <h1>Vytvorenie novej úlohy</h1>
-
-        <form>
-
-            <div className="form-row">
-                <div className="form-group">
-                    <label htmlFor="meno">*Názov:</label>
-                    <input
-                        type="text"
-                        id="nazov"
-                        name="nazov"
-                        value={formStateUloha.nazov}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="priezvisko">*Deadline:</label>
-                    <input
-                        type="text"
-                        id="deadline"
-                        name="deadline"
-                        value={formStateUloha.deadline}
-                        onChange={handleInputChange}
-                    />
-                </div>
-            </div>
-
-            <div className="form-row">
-                <div className="form-group">
-                    <label htmlFor="meno">*Priradený zamestnanec:</label>
-                    <input
-                        type="text"
-                        id="priradenyZamestnanec"
-                        name="priradenyZamestnanec"
-                        value={formStateUloha.priradenyZamestnanec}
-                        onChange={handleInputChange}
-                    />
+            <form>
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="nazov">*Názov:</label>
+                        <input
+                            type="text"
+                            id="nazov"
+                            name="nazov"
+                            value={formStateUloha.nazov}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="deadline">*Deadline:</label>
+                        <input
+                            type="text"
+                            id="deadline"
+                            name="deadline"
+                            value={formStateUloha.deadline}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="priezvisko">*Zadavateľ:</label>
-                    <input
-                        type="text"
-                        id="zadavatel"
-                        name="zadavatel"
-                        value={formStateUloha.zadavatel}
-                        onChange={handleInputChange}
-                    />
+                <div className="form-row">
+
+                    <div className="form-group">
+                        <label htmlFor="priradenyZamestnanec">*Priradený zamestnanec:</label>
+                        <select
+                            id="priradenyZamestnanec"
+                            name="priradenyZamestnanec"
+                            value={formStateUloha.priradenyZamestnanec}
+                            onChange={handleInputChange}
+                            required
+                        >
+                            <option value="">Vyber zamestnanca na priradenie</option>
+                            {zamestnanci.map((zamestnanec) => (
+                                <option key={zamestnanec.id} value={zamestnanec.id}>
+                                    {zamestnanec.meno + " " + zamestnanec.priezvisko}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="zadavatel">*Zadavateľ:</label>
+                        <select
+                            id="zadavatel"
+                            name="zadavatel"
+                            value={formStateUloha.zadavatel}
+                            onChange={handleInputChange}
+                            required
+                        >
+                            <option value="">Vyber zadávateľa</option>
+                            {zamestnanci.map((zamestnanec) => (
+                                <option key={zamestnanec.id} value={zamestnanec.id}>
+                                    {zamestnanec.meno + " " + zamestnanec.priezvisko}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div className="form-row">
-                <div className="form-group">
-                    <label htmlFor="meno">*Vrstva:</label>
-                    <input
-                        type="text"
-                        id="vrstva"
-                        name="vrstva"
-                        value={formStateUloha.vrstva}
-                        onChange={handleInputChange}
-                    />
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="vrstva">*Vrstva:</label>
+                        <input
+                            type="text"
+                            id="vrstva"
+                            name="vrstva"
+                            value={formStateUloha.vrstva}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="fixVersion">Fix version:</label>
+                        <input
+                            type="text"
+                            id="fixVersion"
+                            name="fixVersion"
+                            value={formStateUloha.fixVersion}
+                            onChange={handleInputChange}
+                        />
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="priezvisko">Fix version:</label>
-                    <input
-                        type="text"
-                        id="fixVersion"
-                        name="fixVersion"
-                        value={formStateUloha.fixVersion}
-                        onChange={handleInputChange}
-                    />
+
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="popis">Popis:</label>
+                        <input
+                            type="text"
+                            id="popis"
+                            name="popis"
+                            value={formStateUloha.popis}
+                            onChange={handleInputChange}
+                        />
+                    </div>
                 </div>
-            </div>
-
-
-        </form>
-
-        <div className="button-container">
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="projekt">Projekt:</label>
+                        <select
+                            id="projekt"
+                            name="projekt"
+                            value={formStateUloha.projekt}
+                            onChange={handleInputChange}
+                        >
+                            <option value="">Select a project</option>
+                            {projekty.map((projekt) => (
+                                <option key={projekt.id} value={projekt.id}>
+                                    {projekt.nazov}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div className="button-container">
                 <button type="submit" className="vytvoritBtn" onClick={handleButtonVytvorit}>
                     Vytvoriť
                 </button>
@@ -132,7 +200,6 @@ function UlohaCreateFormRender() {
             </div>
         </div>
     )
-
 }
 
 export default UlohaCreateFormRender;

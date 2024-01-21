@@ -3,10 +3,12 @@ import {Navigate, useNavigate} from "react-router-dom";
 import './createZamestnanecFormStyleSheet.css'
 import '../../../components/errorMessage/errorMessageStylesheet.css'
 import ZamestnanecServices from '../../../services/zamestnanecServices'
+import {useKeycloak} from "@react-keycloak/web";
 
 
 function CreateZamestnanecFormRender() {
     const zamestnanecServices = new ZamestnanecServices();
+    const {keycloak, initialized} = useKeycloak();
 
     const navigate = useNavigate();
 
@@ -15,11 +17,10 @@ function CreateZamestnanecFormRender() {
         priezvisko: "",
         email: "",
         telefonneCislo: "",
-        poznamka: "",
-
+        // poznamka: "",
         vek: "",
-        typZamestnanca: "TPP",
-        pozicia: "PROGRAMATOR",
+        typZamestnanca: "",
+        pozicia: "",
         fotkaZamestnanca: null
     });
 
@@ -27,6 +28,14 @@ function CreateZamestnanecFormRender() {
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setFormState(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    const handleSelectChange = (e) => {
+        const {name, value} = e.target;
+        setFormState((prevState) => ({
             ...prevState,
             [name]: value,
         }));
@@ -66,8 +75,8 @@ function CreateZamestnanecFormRender() {
 
         //EMAIL validacie
         if (!formState.email.trim()) {
-            errors.email = "Email je povinný!";}
-        else if (!/\S+@\S+\.\S+/.test(formState.email)) {
+            errors.email = "Email je povinný!";
+        } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
             errors.email = "Neplatný email formát.";
         }
 
@@ -82,15 +91,11 @@ function CreateZamestnanecFormRender() {
         //VEK validacie
         if (!formState.vek.trim()) {
             errors.vek = "Vek je povinný!";
-        }
-        else if (!/^\d+$/.test(formState.vek)) {
+        } else if (!/^\d+$/.test(formState.vek)) {
             errors.vek = "Vek nie je číslo!";
         }
 
-
-
         setValidationErrors(errors);
-
 
         return Object.keys(errors).length === 0;
     };
@@ -100,7 +105,7 @@ function CreateZamestnanecFormRender() {
         const isValid = validateForm();
 
         if (isValid) {
-            zamestnanecServices.saveZamestnanec(formState, file);
+            zamestnanecServices.saveZamestnanec(formState, file, keycloak.token);
         }
     };
 
@@ -158,16 +163,6 @@ function CreateZamestnanecFormRender() {
                 </div>
                 <div className="form-row">
                     <div className="form-group">
-                        <label htmlFor="poznamka">Poznámka ku zamestnancovi:</label>
-                        <input
-                            type="text"
-                            id="poznamka"
-                            name="poznamka"
-                            value={formState.poznamka}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="form-group">
                         <label htmlFor="vek">Vek*:</label>
                         {validationErrors.vek && <span className="error">{validationErrors.vek}</span>}
                         <input
@@ -178,23 +173,24 @@ function CreateZamestnanecFormRender() {
                             onChange={handleInputChange}
                         />
                     </div>
-                </div>
-                <div className="row">
                     <div className="col">
                         <div className="form-group">
-                            <label htmlFor="oddelenie">Oddelenie:</label>
+                            <label htmlFor="typZamestnanca">Typ zmluvy:</label>
                             <select
-                                id="oddelenie"
-                                name="oddelenie"
-                                value={formState.oddelenie}
-                                onChange={handleInputChange}
+                                id="typZamestnanca"
+                                name="typZamestnanca"
+                                value={formState.typZamestnanca}
+                                onChange={handleSelectChange}
                             >
-                                <option value="PERSONALNE">Personálne</option>
-                                <option value="TESTOVACIE">Testovacie</option>
-                                <option value="VYVOJARSKE">Vývojárske</option>
+                                <option value="TPP">Trvalý pracovný pomer</option>
+                                <option value="DOHODAR">Dohodár</option>
+                                {/*<option value="VYVOJARSKE">Vývojárske</option>*/}
                             </select>
                         </div>
                     </div>
+                </div>
+                <div className="row">
+
                     <div className="col">
                         <div className="form-group">
                             <label htmlFor="pozicia">Pozícia:</label>
@@ -202,7 +198,7 @@ function CreateZamestnanecFormRender() {
                                 id="pozicia"
                                 name="pozicia"
                                 value={formState.pozicia}
-                                onChange={handleInputChange}
+                                onChange={handleSelectChange}
                             >
                                 <option value="TESTER">Tester</option>
                                 <option value="PROGRAMATOR">Programátor</option>
@@ -213,7 +209,7 @@ function CreateZamestnanecFormRender() {
                 </div>
                 <div className="row">
                     <div>
-                        <input type="file" onChange={handleFileChange} />
+                        <input type="file" onChange={handleFileChange}/>
                     </div>
                 </div>
             </form>

@@ -1,7 +1,9 @@
-
+.zamestnanec-detail-header {
+    margin-top: 60px;
+}
 
 .zamestnanec-form {
-    margin-top: 60px;
+    margin-top: 20px;
     margin-bottom: 60px;
 }
 
@@ -80,4 +82,52 @@ input {
 
 .uloha-item .row:last-child {
     display: block;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 500px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal.show .modal-content {
+    opacity: 1;
+}
+
+.modal button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.modal button.yes {
+    background-color: #00A000;
+    color: #fff;
+}
+
+.modal button.no {
+    background-color: #FF0000;
+    color: #fff;
 }

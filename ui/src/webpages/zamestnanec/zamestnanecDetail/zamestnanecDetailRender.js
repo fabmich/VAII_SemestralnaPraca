@@ -2,17 +2,16 @@ import React, {useEffect, useState} from "react";
 import './zamestnanecDetailStyleSheet.css'
 import {useNavigate, useParams} from "react-router-dom";
 import ZamestnanecServices from "../../../services/zamestnanecServices";
+import {useKeycloak} from "@react-keycloak/web";
 
 function ZamestnanecDetailRender() {
     const zamestnanecServices = new ZamestnanecServices();
     const navigate = useNavigate();
     const [ListOfUlohy, setListOfUlohy] = useState([]);
     const [loading, setLoading] = useState(true);
-
-
+    const [showModal, setShowModal] = useState(false);
+    const {keycloak, initialized} = useKeycloak();
     const {id} = useParams();
-
-
 
     const [zamestnanecDetails, setZamestnanecDetails] = useState({
         id: '',
@@ -24,6 +23,9 @@ function ZamestnanecDetailRender() {
         kontraktDo: '',
         typZamestnanca: '',
         pozicia: '',
+
+        telefonneCislo: '',
+        email: ''
     });
 
     useEffect(() => {
@@ -40,7 +42,6 @@ function ZamestnanecDetailRender() {
 
         fetchDetailZamestnanca();
     }, [id]);
-
 
     useEffect(() => {
         const fetchUlohy = async () => {
@@ -71,33 +72,41 @@ function ZamestnanecDetailRender() {
             priezvisko: zamestnanecDetails.priezvisko,
             vek: zamestnanecDetails.vek,
             zamestnanyOd: zamestnanecDetails.zamestnanyOd,
-            kontraktDo: zamestnanecDetails.kontraktDo,
             typZamestnanca: zamestnanecDetails.typZamestnanca,
             pozicia: zamestnanecDetails.pozicia,
+            telefonneCislo: zamestnanecDetails.telefonneCislo,
+            email: zamestnanecDetails.email
         };
 
-        // const isValid = validateForm();
-        //
-        // if (isValid) {
-        zamestnanecServices.updateZamestnanec(zamestnanecDetails.id, updateZamestnanecRequest);
-        // }
+        zamestnanecServices.updateZamestnanec(zamestnanecDetails.id, updateZamestnanecRequest, keycloak.token);
     };
 
-    //TODO refactor - byvalych zamestnancov netreba mazat, iba nastavit im flag neviditelny/odstranene/byvaly na true a nebude sa ukazovat v zozname a pod
     const handleButtonVymaz = () => {
-        zamestnanecServices.deleteZamestnanec(zamestnanecDetails.id);
-        navigate('/zamestnanci');
+        setShowModal(true);
     }
+
+    const handleModalYes = () => {
+        zamestnanecServices.deleteZamestnanec(zamestnanecDetails.id, keycloak.token);
+        navigate('/zamestnanci');
+
+        setShowModal(false);
+    };
+
+    const handleModalNo = () => {
+        setShowModal(false);
+    };
 
 
     return (
         <div>
+            <h2 className="zamestnanec-detail-header">Údaje o zamestnancovi</h2>
+
             <form id="zamestnanecForm" className="zamestnanec-form">
                 <div className="row">
                     <div className="col">
                         <label htmlFor="id">ID:</label>
                         <input type="text" id="id" name="id" value={zamestnanecDetails?.id || ''}
-                               onChange={handleInputChange} required/>
+                               onChange={handleInputChange} disabled/>
                     </div>
                     <div className="col">
                         <label htmlFor="meno">Meno:</label>
@@ -120,20 +129,11 @@ function ZamestnanecDetailRender() {
                 </div>
 
                 <div className="row">
-                    {/*<div className="col">*/}
-                    {/*    <label htmlFor="displayName">Display Name:</label>*/}
-                    {/*    <input type="text" id="displayName" name="displayName" value={zamestnanecDetails?.displayName || ''} onChange={handleInputChange} required />*/}
-                    {/*</div>*/}
-
                     <div className="col">
                         <label htmlFor="zamestnanyOd">Zamestnaný Od:</label>
                         <input type="text" id="zamestnanyOd" name="zamestnanyOd"
-                               value={zamestnanecDetails?.zamestnanyOd || ''} onChange={handleInputChange} required/>
-                    </div>
-                    <div className="col">
-                        <label htmlFor="kontraktDo">Kontrakt Do:</label>
-                        <input type="text" id="kontraktDo" name="kontraktDo"
-                               value={zamestnanecDetails?.kontraktDo || ''} onChange={handleInputChange} required/>
+                               value={zamestnanecDetails?.zamestnanyOd || ''} onChange={handleInputChange} required
+                               disabled/>
                     </div>
                 </div>
 
@@ -150,6 +150,20 @@ function ZamestnanecDetailRender() {
                                onChange={handleInputChange} required/>
                     </div>
                 </div>
+                <div className="row">
+
+
+                    <div className="col">
+                        <label htmlFor="telefonneCislo">Telefónne číslo</label>
+                        <input type="text" id="telefonneCislo" name="telefonneCislo"
+                               value={zamestnanecDetails?.telefonneCislo || ''} onChange={handleInputChange} required/>
+                    </div>
+                    <div className="col">
+                        <label htmlFor="email">Email</label>
+                        <input type="text" id="email" name="email"
+                               value={zamestnanecDetails?.email || ''} onChange={handleInputChange} required/>
+                    </div>
+                </div>
 
 
                 <div className="buttons">
@@ -158,7 +172,7 @@ function ZamestnanecDetailRender() {
                 </div>
             </form>
 
-            <h2>Ulohy List</h2>
+            <h2>Zoznam úloh zamestnanca</h2>
             {loading ? (
                 <p>Loading...</p>
             ) : (
@@ -177,8 +191,14 @@ function ZamestnanecDetailRender() {
                         </li>
                     ))}
                 </ul>
-
             )}
+            <div className={`modal ${showModal ? 'show' : ''}`}>
+                <div className="modal-content">
+                    <p>Chcete naozaj vymazat tohto zakaznika?</p>
+                    <button className="yes" onClick={handleModalYes}>Yes</button>
+                    <button className="no" onClick={handleModalNo}>No</button>
+                </div>
+            </div>
         </div>
     );
 }

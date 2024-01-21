@@ -92,6 +92,12 @@ function ZamestnanecDetailRender() {
         }));
     };
 
+    const handleClickUlohaDetail = (id) => {
+
+        navigate('/ulohy/' + id + '/detail');
+
+    };
+
     const handleModalYes = () => {
         zamestnanecServices.deleteZamestnanec(zamestnanecDetails.id, keycloak.token);
         navigate('/zamestnanci');
@@ -203,7 +209,7 @@ function ZamestnanecDetailRender() {
             ) : (
                 <ul className="ulohy-list">
                     {ListOfUlohy.map((uloha) => (
-                        <li key={uloha.id} className="uloha-item">
+                        <li key={uloha.id} className="uloha-item" onClick={() => handleClickUlohaDetail(uloha.id)}>
                             <div className="row">
                                 <p className="uloha-info">ID: {uloha.id}</p>
                                 <p className="uloha-info">Názov: {uloha.nazov}</p>

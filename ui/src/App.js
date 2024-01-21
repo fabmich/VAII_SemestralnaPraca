@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-// import './App.css';
+import './App.css';
 import NavBarRender from "./components/navbar/navBarRender";
 import IndexRender from "./webpages/index/indexRender";
 import FooterRender from "./components/footer/footerRender";
@@ -10,12 +10,14 @@ import React, {useEffect, useState} from "react";
 import ZamestnanecListRender from "./webpages/zamestnanec/zamestnanecList/zamestnanecListRender";
 import ZamestnanecDetailRender from "./webpages/zamestnanec/zamestnanecDetail/zamestnanecDetailRender";
 import keycloak from "./keycloak";
-import {ReactKeycloakProvider} from "@react-keycloak/web";
+import {ReactKeycloakProvider, useKeycloak} from "@react-keycloak/web";
 import PrivateRoute from "./helpers/privateRoute";
 import LoginRender from "./webpages/login/loginRender";
 import UlohaCreateFormRender from "./webpages/uloha/ulohaCreateForm/ulohaCreateFormRender";
 import UlohaDetailRender from "./webpages/uloha/ulohaDetail/ulohaDetailRender";
-
+import ProjektListRender from "./webpages/projekt/projektList/projektListRender";
+import ProjektCreateFormRender from "./webpages/projekt/projektCreateForm/projektCreateFormRender";
+import ProjektDetailRender from "./webpages/projekt/projektDetail/projektDetailRender";
 
 function App() {
     return (
@@ -59,10 +61,10 @@ function MainContent() {
                     <Routes>
                         <Route path="/" element={<LoginRender />} />
 
-                        {/*<Route path="/home" element={<PrivateRoute> <IndexRender/> </PrivateRoute> } />*/}
-                        <Route path="/home" element={ <IndexRender/>  } />
-                        {/*<Route path="/zamestnanci" element={<PrivateRoute> <ZamestnanecListRender/> </PrivateRoute>}/>*/}
-                        <Route path="/zamestnanci" element={<ZamestnanecListRender/> }/>
+                        <Route path="/home" element={<PrivateRoute> <IndexRender/> </PrivateRoute> } />
+                        {/*<Route path="/home" element={ <IndexRender/>  } />*/}
+                        <Route path="/zamestnanci" element={<PrivateRoute> <ZamestnanecListRender/> </PrivateRoute>}/>
+                        {/*<Route path="/zamestnanci" element={<ZamestnanecListRender/> }/>*/}
 
 
                         {/*<Route path="/zamestnanci" element={<PrivateRoute>*/}
@@ -78,8 +80,11 @@ function MainContent() {
                         <Route path="/ulohy/:id/detail" element={<UlohaDetailRender/>}/>
 
                             {/*<Route path="/tasks" component={Tasks} />*/}
-                            {/*<Route path="/projects" component={Projects} />*/}
-                            {/*<Route path="/contacts" component={Contacts} />*/}
+                            <Route path="/projekty" element={<ProjektListRender/>} />
+                            <Route path="/projekty/create-projekt" element={<ProjektCreateFormRender/>} />
+                        <Route path="/projekty/:id/detail" element={<ProjektDetailRender/>}/>
+
+                        {/*<Route path="/kontakty" component={Contacts} />*/}
                     </Routes>
                 <FooterRender/>
 

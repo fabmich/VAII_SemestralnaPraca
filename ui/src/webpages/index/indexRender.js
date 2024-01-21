@@ -32,7 +32,7 @@ function IndexRender() {
                             <p>Úlohy</p>
                         </div>
                     </Link>
-                    <Link to="/projektDetail" className="tile">
+                    <Link to="/projekty" className="tile">
                         <div className="tile-content">
                             <img src={projectImage} alt="Projekty"/>
                             <p>Projekty</p>

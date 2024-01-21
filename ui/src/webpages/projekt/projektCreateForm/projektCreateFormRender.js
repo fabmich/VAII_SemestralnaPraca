@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import ProjektServices from "../../../services/projektServices";
 import "./projektCreateFormStylesheet.css"
-import keycloak from "../../../keycloak";
 import {useKeycloak} from "@react-keycloak/web";
 
 function ProjektCreateFormRender() {
@@ -37,11 +36,11 @@ function ProjektCreateFormRender() {
     };
 
     return (
-        <div className="contentForm">
+        <div className="create-projekt-formular">
             <h1>Vytvorenie nového projektu</h1>
             <form>
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="create-projekt-formular-row">
+                    <div className="create-projekt-formular-group">
                         <label htmlFor="nazov">*Názov:</label>
                         <input
                             type="text"
@@ -52,7 +51,7 @@ function ProjektCreateFormRender() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="create-projekt-formular-group">
                         <label htmlFor="deadline">*Prefix:</label>
                         <input
                             type="text"
@@ -65,9 +64,9 @@ function ProjektCreateFormRender() {
                     </div>
                 </div>
 
-                <div className="form-row">
+                <div className="create-projekt-formular-row">
 
-                    <div className="form-group">
+                    <div className="create-projekt-formular-group">
                         <label htmlFor="deadline">*Zakazník:</label>
                         <input
                             type="text"
@@ -79,7 +78,7 @@ function ProjektCreateFormRender() {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="create-projekt-formular-group">
                         <label htmlFor="deadline">Popis:</label>
                         <input
                             type="text"

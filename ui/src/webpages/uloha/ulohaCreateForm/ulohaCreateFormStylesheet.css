@@ -1,0 +1,34 @@
+
+.create-uloha-formular {
+    max-width: 2000px;
+    margin: 50px auto 100px auto;
+    padding: 20px;
+}
+
+
+.create-uloha-formular-group {
+    margin-bottom: 15px;
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.col {
+    flex: 1;
+    padding: 5px;
+}
+
+.create-uloha-formular-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-uloha-formular-row .create-uloha-formular-group {
+    flex: 1;
+    margin-right: 10px;
+}
+

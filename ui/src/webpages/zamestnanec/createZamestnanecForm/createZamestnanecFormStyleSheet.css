@@ -7,7 +7,7 @@
 #navbar-container {
 }
 
-.contentForm {
+.create-zam-formular {
     max-width: 2000px;
     margin: 50px auto 100px auto;
     padding: 20px;
@@ -18,7 +18,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-.form-group {
+.create-zam-formular-group {
     margin-bottom: 15px;
 }
 
@@ -46,12 +46,12 @@ select, input[type="text"] {
     padding: 5px;
 }
 
-.form-row {
+.create-zam-formular-row {
     display: flex;
     justify-content: space-between;
 }
 
-.form-row .form-group {
+.create-zam-formular-row .create-zam-formular-group {
     flex: 1;
     margin-right: 10px;
 }
@@ -87,11 +87,11 @@ select, input[type="text"] {
         max-width: 100%;
     }
 
-    .form-row {
+    .formular-row {
         flex-direction: column;
     }
 
-    .form-row .form-group {
+    .formular-row .formular-group {
         flex: 1;
         margin-right: 0;
     }
@@ -101,7 +101,7 @@ select, input[type="text"] {
     }
 
 
-    .form-row select {
+    .formular-row select {
         width: 100%;
     }
 }

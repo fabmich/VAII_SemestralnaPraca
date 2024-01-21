@@ -148,15 +148,15 @@
     .uloha-info-column,
     .uloha-header-column,
     .uloha-list-item {
-        margin: 0; /* Reset margin for mobile layout */
+        margin: 0;
     }
 
     .uloha-list-item.employee-info {
-        margin-right: 0; /* Remove margin for mobile layout */
+        margin-right: 0;
     }
 
     .uloha-header-info-row,
     .uloha-list-item .row {
-        flex-direction: row; /* Revert to horizontal layout for headers and nested rows */
+        flex-direction: row;
     }
 }

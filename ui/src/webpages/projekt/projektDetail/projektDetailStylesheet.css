@@ -24,3 +24,44 @@
 .projekt-uprav-zrusitBtn:hover {
     background-color: #CC0000;
 }
+
+.projekt-uprav-button-container {
+    margin-top: 20px;
+}
+
+
+
+.projekt-uprav-formular {
+    max-width: 2000px;
+    margin: 50px auto 100px auto;
+    padding: 20px;
+}
+
+
+.projekt-uprav-formular-group {
+    margin-bottom: 15px;
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.col {
+    flex: 1;
+    padding: 5px;
+}
+
+.projekt-uprav-formular-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.projekt-uprav-formular-row .projekt-uprav-formular-group {
+    flex: 1;
+    margin-right: 10px;
+}
+
+

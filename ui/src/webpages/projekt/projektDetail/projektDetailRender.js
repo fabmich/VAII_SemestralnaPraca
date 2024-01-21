@@ -58,11 +58,11 @@ function ProjektDetailRender() {
 
 
     return (
-        <div className="contentForm">
+        <div className="projekt-uprav-formular">
             <h1>Vytvorenie nového projektu</h1>
             <form>
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="projekt-uprav-formular-row">
+                    <div className="projekt-uprav-formular-group">
                         <label htmlFor="nazov">*Názov:</label>
                         <input
                             type="text"
@@ -73,7 +73,7 @@ function ProjektDetailRender() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="projekt-uprav-formular-group">
                         <label htmlFor="deadline">*Prefix:</label>
                         <input
                             type="text"
@@ -86,9 +86,9 @@ function ProjektDetailRender() {
                     </div>
                 </div>
 
-                <div className="form-row">
+                <div className="projekt-uprav-formular-row">
 
-                    <div className="form-group">
+                    <div className="projekt-uprav-formular-group">
                         <label htmlFor="deadline">*Zakazník:</label>
                         <input
                             type="text"
@@ -100,7 +100,7 @@ function ProjektDetailRender() {
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="projekt-uprav-formular-group">
                         <label htmlFor="deadline">Popis:</label>
                         <input
                             type="text"
@@ -114,7 +114,7 @@ function ProjektDetailRender() {
                 </div>
             </form>
 
-            <div className="button-container">
+            <div className="projekt-uprav-button-container">
                 <button type="submit" className="projekt-uprav-upravtBtn" onClick={handleButtonUprav}>
                     Uprav
                 </button>

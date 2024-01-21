@@ -110,11 +110,11 @@ function CreateZamestnanecFormRender() {
     };
 
     return (
-        <div className="contentForm">
+        <div className="create-zam-formular">
             <h1>Vytvorenie nového zamestnanca</h1>
             <form>
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="create-zam-formular-row">
+                    <div className="create-zam-formular-group">
                         <label htmlFor="meno">Meno*:</label>
                         {validationErrors.meno && <span className="error">{validationErrors.meno}</span>}
                         <input
@@ -125,7 +125,7 @@ function CreateZamestnanecFormRender() {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="create-zam-formular-group">
                         <label htmlFor="priezvisko">Priezvisko*:</label>
                         {validationErrors.priezvisko && <span className="error">{validationErrors.priezvisko}</span>}
                         <input
@@ -137,8 +137,8 @@ function CreateZamestnanecFormRender() {
                         />
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="create-zam-formular-row">
+                    <div className="create-zam-formular-group">
                         <label htmlFor="email">Email*:</label>
                         {validationErrors.email && <span className="error">{validationErrors.email}</span>}
                         <input
@@ -149,7 +149,7 @@ function CreateZamestnanecFormRender() {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="create-zam-formular-group">
                         <label htmlFor="telefon">Telefónne číslo*:</label>
                         {validationErrors.telefon && <span className="error">{validationErrors.telefon}</span>}
                         <input
@@ -161,8 +161,8 @@ function CreateZamestnanecFormRender() {
                         />
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="create-zam-formular-row">
+                    <div className="create-zam-formular-group">
                         <label htmlFor="vek">Vek*:</label>
                         {validationErrors.vek && <span className="error">{validationErrors.vek}</span>}
                         <input
@@ -174,7 +174,7 @@ function CreateZamestnanecFormRender() {
                         />
                     </div>
                     <div className="col">
-                        <div className="form-group">
+                        <div className="create-zam-formular-group">
                             <label htmlFor="typZamestnanca">Typ zmluvy:</label>
                             <select
                                 id="typZamestnanca"
@@ -191,7 +191,7 @@ function CreateZamestnanecFormRender() {
                 <div className="row">
 
                     <div className="col">
-                        <div className="form-group">
+                        <div className="create-zam-formular-group">
                             <label htmlFor="pozicia">Pozícia:</label>
                             <select
                                 id="pozicia"
@@ -211,7 +211,9 @@ function CreateZamestnanecFormRender() {
                 </div>
                 <div className="row">
                     <div>
+                        <span>Nahrať fotku zamestnanca</span>
                         <input type="file" onChange={handleFileChange}/>
+
                     </div>
                 </div>
             </form>

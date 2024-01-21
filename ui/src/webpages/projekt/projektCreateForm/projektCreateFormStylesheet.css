@@ -1,4 +1,41 @@
 
+
+.create-projekt-formular {
+    max-width: 2000px;
+    margin: 50px auto 100px auto;
+    padding: 20px;
+}
+
+
+.create-projekt-formular-group {
+    margin-bottom: 15px;
+}
+
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.col {
+    flex: 1;
+    padding: 5px;
+}
+
+.create-projekt-formular-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-projekt-formular-row .create-projekt-formular-group {
+    flex: 1;
+    margin-right: 10px;
+}
+
+
+
+
 .projekt-create-vytvoritBtn {
     padding: 10px 20px;
     background-color: #00A000;

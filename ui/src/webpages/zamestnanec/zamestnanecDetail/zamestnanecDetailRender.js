@@ -211,13 +211,13 @@ function ZamestnanecDetailRender() {
                     {ListOfUlohy.map((uloha) => (
                         <li key={uloha.id} className="uloha-item" onClick={() => handleClickUlohaDetail(uloha.id)}>
                             <div className="row">
-                                <p className="uloha-info">ID: {uloha.id}</p>
+                                <p className="uloha-info">ID: {uloha.prefix + '-' + uloha.cisloUlohy}</p>
                                 <p className="uloha-info">Názov: {uloha.nazov}</p>
                             </div>
                             <div className="row">
                                 <p className="uloha-info">Zadávateľ: {uloha.zadavatel.meno + " " + uloha.zadavatel.priezvisko}</p>
                                 <p className="uloha-info">Stav úlohy: {uloha.stavUlohy}</p>
-                                <p className="uloha-info">Cislo ulohy: {uloha.cisloUlohy}</p>
+                                {/*<p className="uloha-info">Cislo ulohy: {uloha.cisloUlohy}</p>*/}
                             </div>
                         </li>
                     ))}

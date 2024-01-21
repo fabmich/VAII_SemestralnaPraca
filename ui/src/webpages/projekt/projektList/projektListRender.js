@@ -127,9 +127,9 @@ function ProjektListRender() {
             )}
             <div className={`modal ${showModal ? 'show' : ''}`}>
                 <div className="modal-content">
-                    <p>Chcete naozaj vymazat tohto zakaznika?</p>
-                    <button className="yes" onClick={handleModalYes}>Yes</button>
-                    <button className="no" onClick={handleModalNo}>No</button>
+                    <p>Chcete naozaj vymazať tento projekt?</p>
+                    <button className="Áno" onClick={handleModalYes}>Yes</button>
+                    <button className="Nie" onClick={handleModalNo}>No</button>
                 </div>
             </div>
         </div>

@@ -67,11 +67,11 @@ function UlohaCreateFormRender() {
 
 
     return (
-        <div className="contentForm">
+        <div className="create-uloha-formular">
             <h1>Vytvorenie novej úlohy</h1>
             <form>
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="create-uloha-formular-row">
+                    <div className="create-uloha-formular-group">
                         <label htmlFor="nazov">*Názov:</label>
                         <input
                             type="text"
@@ -82,7 +82,7 @@ function UlohaCreateFormRender() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="create-uloha-formular-group">
                         <label htmlFor="deadline">*Deadline:</label>
                         <input
                             type="text"
@@ -95,9 +95,9 @@ function UlohaCreateFormRender() {
                     </div>
                 </div>
 
-                <div className="form-row">
+                <div className="create-uloha-formular-row">
 
-                    <div className="form-group">
+                    <div className="create-uloha-formular-group">
                         <label htmlFor="priradenyZamestnanec">*Priradený zamestnanec:</label>
                         <select
                             id="priradenyZamestnanec"
@@ -115,7 +115,7 @@ function UlohaCreateFormRender() {
                         </select>
                     </div>
 
-                    <div className="form-group">
+                    <div className="create-uloha-formular-group">
                         <label htmlFor="zadavatel">*Zadavateľ:</label>
                         <select
                             id="zadavatel"
@@ -134,8 +134,8 @@ function UlohaCreateFormRender() {
                     </div>
                 </div>
 
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="create-uloha-formular-row">
+                    <div className="create-uloha-formular-group">
                         <label htmlFor="vrstva">*Vrstva:</label>
                         <input
                             type="text"
@@ -146,7 +146,7 @@ function UlohaCreateFormRender() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="create-uloha-formular-group">
                         <label htmlFor="fixVersion">Fix version:</label>
                         <input
                             type="text"
@@ -158,8 +158,8 @@ function UlohaCreateFormRender() {
                     </div>
                 </div>
 
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="create-uloha-formular-row">
+                    <div className="create-uloha-formular-group">
                         <label htmlFor="popis">Popis:</label>
                         <input
                             type="text"
@@ -170,8 +170,8 @@ function UlohaCreateFormRender() {
                         />
                     </div>
                 </div>
-                <div className="form-row">
-                    <div className="form-group">
+                <div className="create-uloha-formular-row">
+                    <div className="create-uloha-formular-group">
                         <label htmlFor="projekt">Projekt:</label>
                         <select
                             id="projekt"

@@ -4,7 +4,7 @@ import './footerStylesheet.css'
 function Footer() {
     return (
         <footer>
-            <p>Copyright 2022 WorkFlow Manager</p>
+            <p>Copyright 2023-2024 WorkFlow Manager</p>
             <p>Vytvorené by Michael Fabo</p>
         </footer>
     );

@@ -16,8 +16,6 @@ public class UpravZamestnancaRequest {
     private String priezvisko;
     private Integer vek;
 
-    private LocalDate kontraktDo;
-
     private TypZamestnanca typZamestnanca;
     private Pozicia pozicia;
     private String telefonneCislo;

@@ -13,6 +13,7 @@ import com.portal.request.zamestnanec.CreateZamestnanecRequest;
 import com.portal.request.zamestnanec.UpravZamestnancaRequest;
 import com.portal.response.GetZamestnanecResponse;
 import com.portal.response.ZamestnanecFindAllResponse;
+import com.portal.utils.RoleCheckerUtil;
 import com.portal.validator.zamestnanec.CreateZamestnanecControl;
 import com.portal.validator.zamestnanec.ExistsZamestnanec;
 import jakarta.persistence.EntityManager;
@@ -21,6 +22,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -45,7 +47,10 @@ public class ZamestnanecService {
     private final FileDao fileDao;
     private final ZPUDao zpuDao;
 
+
     public List<ZamestnanecFindAllResponse> findAll() {
+
+
 
         return zamestnanecDao.findAll().stream().map(zamestnanecMapper::toZamestnanecFindAllResponse).collect(Collectors.toList());
 
@@ -94,6 +99,8 @@ public class ZamestnanecService {
         zamestnanec.setVek(request.getVek());
         zamestnanec.setTypZamestnanca(request.getTypZamestnanca());
         zamestnanec.setPozicia(request.getPozicia());
+        zamestnanec.setTelefonneCislo(request.getTelefonneCislo());
+        zamestnanec.setEmail(request.getEmail());
 
         zamestnanecDao.save(zamestnanec);
     }

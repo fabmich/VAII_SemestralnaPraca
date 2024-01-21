@@ -1,21 +1,20 @@
 package com.portal.controller;
 
 
-import com.portal.entity.Uloha;
+import com.portal.ciselniky.Role;
 import com.portal.request.uloha.CreateUlohaRequest;
 import com.portal.request.uloha.UlohaFindAllRequest;
 import com.portal.request.uloha.UpravUlohuRequest;
 import com.portal.response.uloha.GetUlohaResponse;
 import com.portal.response.uloha.UlohaFindAllResponse;
 import com.portal.service.UlohaService;
+import com.portal.validator.CheckRole;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -33,29 +32,29 @@ public class UlohaController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public UUID createZamestnanec(@RequestBody CreateUlohaRequest request) {
+    public UUID createUloha(@RequestBody CreateUlohaRequest request, @RequestHeader("Authorization") @CheckRole({Role.ROLA_SPRAVCA_ULOH}) String  token) {
         return ulohaService.save(request);
 
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteZamestnanec(@PathVariable UUID id) {
+    public void deleteUloha(@PathVariable UUID id, @RequestHeader("Authorization") @CheckRole({Role.ROLA_SPRAVCA_ULOH}) String  token) {
 
         ulohaService.delete(id);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void upravZamestnanca(@PathVariable UUID id, @RequestBody UpravUlohuRequest request) {
-        ulohaService.upravZamestnanca(id, request);
+    public void upravUlohu(@PathVariable UUID id, @RequestBody UpravUlohuRequest request, @RequestHeader("Authorization") @CheckRole({Role.ROLA_SPRAVCA_ULOH}) String  token) {
+        ulohaService.upravUlohu(id, request);
 
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public GetUlohaResponse getZamestnanec(@PathVariable UUID id) {
-        return ulohaService.getZamestnanec(id);
+    public GetUlohaResponse getUloha(@PathVariable UUID id) {
+        return ulohaService.getUloha(id);
     }
 
 

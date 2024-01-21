@@ -2,6 +2,10 @@ package com.portal.request;
 
 import lombok.Getter;
 import lombok.Setter;
+/**
+ *
+ * NENI CAST SP VAII, to som len mal ako proof of concept
+ */
 
 @Getter
 @Setter

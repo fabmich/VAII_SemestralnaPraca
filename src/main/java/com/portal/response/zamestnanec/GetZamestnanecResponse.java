@@ -3,12 +3,10 @@ package com.portal.response.zamestnanec;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.portal.ciselniky.Pozicia;
 import com.portal.ciselniky.TypZamestnanca;
-import com.portal.entity.Uloha;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Getter

@@ -1,7 +1,6 @@
 package com.portal.validator.projekt;
 
 import com.portal.dao.ProjektDao;
-import com.portal.response.projekt.ProjektFindAllResponse;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
